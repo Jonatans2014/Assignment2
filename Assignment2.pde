@@ -1,15 +1,18 @@
 void setup ()
 {
   size(500, 500);
-  background(255);
+
   snake = new Snake();
-  frameRate(14);
+  frameRate(8);
 }
 
-Snake snake;
+  Snake snake;
 void draw()
 {
   background(255);
+
+  //calling method of snake
   snake.moveSnake();
   snake.drawSnake();
+  snake.gameover();
 }
