@@ -18,4 +18,11 @@ class Snake
      direction = new PVector(x,y);
   }
   
+   
+   
+   
+   void drawSnake()
+   {
+     
+   }
 }
