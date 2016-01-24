@@ -35,6 +35,10 @@ class Snake
       {
         direction.x += 20;
       }
+      if (key == 'a')
+      {
+        direction.x -= 20;
+      }
       
     }
   }
