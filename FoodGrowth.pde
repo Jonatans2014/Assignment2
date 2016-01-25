@@ -1,0 +1,3 @@
+class FoodGrowth extends Food
+{
+}

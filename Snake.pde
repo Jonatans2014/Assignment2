@@ -24,7 +24,7 @@ class Snake
   }
 
   // method to move the snake
-  void moveSnake()
+  void Update()
   {
     if (keyPressed)
     {
@@ -85,7 +85,7 @@ class Snake
   }
 
   // method to draw the snake
-  void drawSnake()
+  void Render()
   {
     pushMatrix();
     translate(direction.x, direction.y);

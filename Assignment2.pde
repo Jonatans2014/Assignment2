@@ -12,7 +12,8 @@ void draw()
   background(255);
 
   //calling method of snake
-  snake.moveSnake();
-  snake.drawSnake();
+  
+  snake.Render();
+  snake.Update();
   snake.gameover();
 }
