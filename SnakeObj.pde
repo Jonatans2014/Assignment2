@@ -19,6 +19,7 @@ abstract class SnakeObj
     //constructor 
   SnakeObj(float x, float y, float snakeWidth)
   {
+    
     backForth = new PVector(0, 20);
     direction = new PVector(x,y);
     this.snakeWidth = snakeWidth;

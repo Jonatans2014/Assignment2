@@ -1,8 +1,11 @@
 class FoodGrowth extends SnakeObj
 {
+  //fields
+  color collour;
   FoodGrowth()
   {
-    super(random(10,width-10), random(10,height-10), 10);
+    super(random(10, width-10), random(10, height-10), 10);
+    collour= color(#FCFC05);
   }
 
 
@@ -12,10 +15,8 @@ class FoodGrowth extends SnakeObj
 
   void Render()
   {
-    pushMatrix();
-    fill(0);
-    rect(direction.x,direction.y, snakeWidth, snakeWidth);
-    println(direction.x,direction.y);
-    popMatrix();
+    fill(collour);
+    rect(direction.x, direction.y, snakeWidth, snakeWidth);
+    println(direction.x, direction.y);
   }
 }
