@@ -1,4 +1,4 @@
-class FoodLives extends SnakeObj
+class FoodLives extends SnakeObj implements PowerUp
 {
 
   FoodLives()
@@ -7,6 +7,11 @@ class FoodLives extends SnakeObj
     collour= color(#FC0509);
   }
 
+
+  void applyTo(Snake snake)
+  {
+    snake.life ++;
+  }
   void Update()
   {
   }
@@ -20,6 +25,5 @@ class FoodLives extends SnakeObj
     fill(#FC0509);
     ellipse(halfW, halfW, snakeWidth, snakeWidth);
     popMatrix();
-    
   }
 }

@@ -1,4 +1,4 @@
-class FoodGrowth extends SnakeObj implements PowerUp
+class FoodGrowth extends SnakeObj 
 {
   //fields
   color collour;
@@ -9,10 +9,7 @@ class FoodGrowth extends SnakeObj implements PowerUp
   }
 
     
-  void applyTo(Snake snake)
-  {
-    snake.life ++;
-  }
+ 
   void Update()
   {
     
