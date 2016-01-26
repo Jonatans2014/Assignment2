@@ -24,6 +24,7 @@ class Snake  extends SnakeObj
     pushMatrix();
     translate(direction.x, direction.y);
     // display life
+    fill(#FC0509);
     text("Life:"+life,textWH,textWH);
     fill(0);
     rect(0, 0, snakeWidth, snakeWidth);
