@@ -5,7 +5,7 @@ class Snake  extends SnakeObj
   // Field
   
   String move;
-  float snakew;
+  
 
   Snake()
   { 
@@ -17,9 +17,6 @@ class Snake  extends SnakeObj
   Snake(float x, float y)
   {
     move = "w";
-    backForth = new PVector(0, 20);
-    snakew = 10;
-    direction = new PVector(x, y);
   }
   
   
@@ -30,7 +27,7 @@ class Snake  extends SnakeObj
     pushMatrix();
     translate(direction.x, direction.y);
     fill(0);
-    rect(0, 0, snakew, snakew);
+    rect(0, 0, snakeWidth, snakeWidth);
     println(direction.x, direction.y);
     popMatrix();
   }
@@ -85,11 +82,11 @@ class Snake  extends SnakeObj
     
     textSize(32);
     // if function when it is less than 10 and more than 490 a its gonna show game over
-    if (direction.y < height -(height-snakew) || direction.y >height - snakew )
+    if (direction.y < height -(height-snakeWidth) || direction.y >height - snakeWidth)
     {
       text("Game Over", width*0.3, height/2);
     }
-    if(direction.x < width -(width-snakew) || direction.x > width - snakew)
+    if(direction.x < width -(width-snakeWidth) || direction.x > width - snakeWidth)
     {
       text("Game Over", width*0.3, height/2);
     }

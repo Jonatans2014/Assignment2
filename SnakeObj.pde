@@ -13,15 +13,15 @@ abstract class SnakeObj
   SnakeObj()
   {
     //Constructor chaining
-    this(width * 0.5f, height  * 0.5f);
+    this(width * 0.5f, height  * 0.5f,10);
   }
 
     //constructor 
-  SnakeObj(float x, float y)
+  SnakeObj(float x, float y, float snakeWidth)
   {
     backForth = new PVector(0, 20);
-    direction = new PVector(x, y);
-    snakeWidth = 10;
+    direction = new PVector(x,y);
+    this.snakeWidth = snakeWidth;
   }
 
 
