@@ -1,4 +1,4 @@
-class FoodGrowth extends SnakeObj
+class FoodGrowth extends SnakeObj implements PowerUp
 {
   //fields
   color collour;
@@ -8,9 +8,14 @@ class FoodGrowth extends SnakeObj
     collour= color(#FCFC05);
   }
 
-
+    
+  void applyTo(Snake snake)
+  {
+    snake.life ++;
+  }
   void Update()
   {
+    
   }
 
   void Render()
