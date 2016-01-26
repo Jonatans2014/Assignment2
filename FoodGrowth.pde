@@ -1,4 +1,0 @@
-class FoodGrowth extends Food
-{
-  
-}

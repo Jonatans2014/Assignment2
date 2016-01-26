@@ -1,10 +1,9 @@
 
 //Snake class
-class Snake
+class Snake  extends SnakeObj
 {
   // Field
-  PVector direction;
-  PVector backForth;
+  
   String move;
   float snakew;
 
@@ -22,7 +21,20 @@ class Snake
     snakew = 10;
     direction = new PVector(x, y);
   }
-
+  
+  
+ 
+    // method to draw the snake
+  void Render()
+  {
+    pushMatrix();
+    translate(direction.x, direction.y);
+    fill(0);
+    rect(0, 0, snakew, snakew);
+    println(direction.x, direction.y);
+    popMatrix();
+  }
+ 
   // method to move the snake
   void Update()
   {
@@ -84,14 +96,6 @@ class Snake
     println(mouseX,mouseY);
   }
 
-  // method to draw the snake
-  void Render()
-  {
-    pushMatrix();
-    translate(direction.x, direction.y);
-    fill(0);
-    rect(0, 0, snakew, snakew);
-    println(direction.x, direction.y);
-    popMatrix();
-  }
+
+
 }

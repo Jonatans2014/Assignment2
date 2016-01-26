@@ -15,5 +15,4 @@ void draw()
   
   snake.Render();
   snake.Update();
-  snake.gameover();
 }
