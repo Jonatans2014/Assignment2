@@ -7,14 +7,9 @@ class Snake  extends SnakeObj
   String move;
   
 
-  Snake()
-  { 
-    // chaining constructor
-    this(width *0.5f, height*0.5f);
-  }
-
+ 
   // constructor 
-  Snake(float x, float y)
+  Snake()
   {
     move = "w";
   }
