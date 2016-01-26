@@ -8,9 +8,12 @@ class Snake  extends SnakeObj
   int life;
   float textWH;
   int score;
-  // constructor 
+  // constructor
+  
+  
   Snake()
   {
+    super(width*0.5f,height*0.5f,10);
     move = "w";
     life =0;
     textWH = width * 0.040f;

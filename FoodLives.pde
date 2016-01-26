@@ -23,7 +23,7 @@ class FoodLives extends SnakeObj implements PowerUp
     translate(direction.x, direction.y);
     // display life
     fill(#FC0509);
-    ellipse(halfW, halfW, snakeWidth, snakeWidth);
+    rect(-halfW, -halfW, snakeWidth, snakeWidth);
     popMatrix();
   }
 }
