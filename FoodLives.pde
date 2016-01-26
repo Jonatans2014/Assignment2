@@ -1,6 +1,8 @@
 class FoodLives extends SnakeObj implements PowerUp
 {
-
+    
+  
+  //constructor
   FoodLives()
   {
     super(random(50, width-10), random(50, height-10), 10);

@@ -9,6 +9,12 @@ class FoodGrowth extends SnakeObj
   }
 
     
+    
+  
+  void applyTo(Snake snake)
+  {
+    snake.score += 10;
+  }
  
   void Update()
   {

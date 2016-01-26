@@ -7,8 +7,8 @@ void setup ()
 {
   size(500, 500);
 
-   snake = new Snake();
-  
+  snake = new Snake();
+
   //adding object snake to the arrayList
   SObj.add(snake);
   frameRate(8);
@@ -19,14 +19,13 @@ Snake snake;
 void draw()
 {
   background(255);
-  
+
   // running methods in the arraylist and passing values fromt he arraylis to the superclass
   for (int i = SObj.size() -1; i >=0; i--)
   {
     SnakeObj sobj = SObj.get(i);
     sobj.Update();
     sobj.Render();
-
   }
   snake.gameover();
 
@@ -64,12 +63,21 @@ void checkCollisions()
       for (int j = SObj.size() -1; j >=0; j--)
       {
         SnakeObj other =  SObj.get(j);
-        if (other instanceof PowerUp)
+        if (other instanceof FoodLives || other instanceof FoodGrowth )
         {
           if (sobj.direction.dist(other.direction) < sobj.snakeWidth + other.snakeWidth)
           {
-            ((PowerUp) other).applyTo((Snake)sobj);
-            SObj.remove(other);
+
+            if (other instanceof FoodLives)
+            {
+              ((FoodLives) other).applyTo((Snake)sobj);
+              SObj.remove(other);
+            }
+            else if(other instanceof FoodGrowth)
+            {
+              ((FoodGrowth) other).applyTo((Snake)sobj);
+              SObj.remove(other);
+            }
           }
         }
       }
