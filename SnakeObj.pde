@@ -7,6 +7,7 @@ abstract class SnakeObj
   PVector direction;
   PVector backForth;
   float snakeWidth;
+  float halfW;
   color collour;
 
 
@@ -23,6 +24,7 @@ abstract class SnakeObj
     backForth = new PVector(0, 20);
     direction = new PVector(x,y);
     this.snakeWidth = snakeWidth;
+    this.halfW = snakeWidth *0.5f;
   }
 
 

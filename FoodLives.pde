@@ -14,7 +14,12 @@ class FoodLives extends SnakeObj
   void Render()
   {
     fill(collour);
-    ellipse(direction.x, direction.y, snakeWidth, snakeWidth);
-    println(direction.x, direction.y);
+    pushMatrix();
+    translate(direction.x, direction.y);
+    // display life
+    fill(#FC0509);
+    ellipse(halfW, halfW, snakeWidth, snakeWidth);
+    popMatrix();
+    
   }
 }

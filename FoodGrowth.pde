@@ -21,7 +21,9 @@ class FoodGrowth extends SnakeObj implements PowerUp
   void Render()
   {
     fill(collour);
-    rect(direction.x, direction.y, snakeWidth, snakeWidth);
-    println(direction.x, direction.y);
+    pushMatrix();
+    translate(direction.x, direction.y);
+    rect(halfW, halfW, snakeWidth, snakeWidth);
+    popMatrix();
   }
 }

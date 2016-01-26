@@ -27,7 +27,7 @@ class Snake  extends SnakeObj
     fill(#FC0509);
     text("Life:"+life,textWH,textWH);
     fill(0);
-    rect(0, 0, snakeWidth, snakeWidth);
+    rect(-halfW, -halfW, snakeWidth, snakeWidth);
     println(direction.x, direction.y);
     popMatrix();
     
