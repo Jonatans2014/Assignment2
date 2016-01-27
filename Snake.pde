@@ -8,6 +8,7 @@ class Snake  extends SnakeObj
   int life;
   float textWH;
   int score;
+  int SnakeS;
   // constructor
   
   
@@ -28,12 +29,24 @@ class Snake  extends SnakeObj
     fill(#FC0509);
     text("Life:"+life,textWH,textWH);
     fill(0);
-    rect(direction.x, direction.y, snakeWidth, snakeWidth);
-    println(direction.x, direction.y);
-   
-    
+    rect(direction.get(0).x, direction.get(0).y, snakeWidth, snakeWidth);
+      
+     
+     
+     SnakeS = 1;
+     
+     if(SnakeS != SnakeSize)
+     {
+         println("this here"+SnakeSize);
+         for(int i = 0; i < SnakeSize -1; i++)
+         {
+            direction.add(new PVector(0,20));
+         }
+        println(SnakeSize -1);
+        
+        SnakeS = SnakeSize;
+     }
     // add score
-    
     text("Score " + score,width*0.8,height*0.1);
   }
 
@@ -58,24 +71,25 @@ class Snake  extends SnakeObj
       {
         move = "a";
       }
+   
     }
 
     // if function to move 
     if (move == "w")
     {
-      direction.sub(backForth);
+      direction.get(0).sub(backForth);
     }
     if (move == "s")
     {
-      direction.add(backForth);
+     direction.get(0).add(backForth);
     }
     if (move == "d")
     {
-      direction.add(LeftRight);
+      direction.get(0).add(LeftRight);
     }
     if (move == "a")
     {
-      direction.sub(LeftRight);
+      direction.get(0).sub(LeftRight);
     }
   }
 
@@ -87,14 +101,14 @@ class Snake  extends SnakeObj
 
     textSize(32);
     // if function when it is less than 10 and more than 490 a its gonna show game over
-    if (direction.y < height -(height-snakeWidth) || direction.y >height - snakeWidth)
+    if (direction.get(0).y < height -(height-snakeWidth) ||direction.get(0).y >height - snakeWidth)
     {
       text("Game Over", width*0.3, height/2);
     }
-    if (direction.x < width -(width-snakeWidth) || direction.x > width - snakeWidth)
+    if (direction.get(0).x < width -(width-snakeWidth) || direction.get(0).x > width - snakeWidth)
     {
       text("Game Over", width*0.3, height/2);
     }
-    println(mouseX, mouseY);
+  
   }
 }

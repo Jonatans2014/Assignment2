@@ -7,7 +7,7 @@ abstract class SnakeObj
   ArrayList <PVector> direction;
   PVector backForth;
   PVector LeftRight;
-  
+  int SnakeSize;
   float snakeWidth;
   float halfW;
   color collour;
@@ -22,7 +22,7 @@ abstract class SnakeObj
     //constructor 
   SnakeObj(float x, float y, float snakeWidth)
   {
-    
+    SnakeSize= 1;
     backForth = new PVector(0, 20);
     LeftRight = new PVector(20,0);
     direction = new  ArrayList<PVector>();

@@ -65,15 +65,14 @@ void checkCollisions()
         SnakeObj other =  SObj.get(j);
         if (other instanceof FoodLives || other instanceof FoodGrowth )
         {
-          if (sobj.direction.dist(other.direction) < sobj.snakeWidth + other.snakeWidth)
+          if (sobj.direction.get(0).dist(other.direction.get(0)) < sobj.snakeWidth + other.snakeWidth )
           {
 
             if (other instanceof FoodLives)
             {
               ((FoodLives) other).applyTo((Snake)sobj);
               SObj.remove(other);
-            }
-            else if(other instanceof FoodGrowth)
+            } else if (other instanceof FoodGrowth)
             {
               ((FoodGrowth) other).applyTo((Snake)sobj);
               SObj.remove(other);

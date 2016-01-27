@@ -14,6 +14,7 @@ class FoodGrowth extends SnakeObj
   void applyTo(Snake snake)
   {
     snake.score += 10;
+    snake.SnakeSize ++;
   }
  
   void Update()
@@ -24,9 +25,7 @@ class FoodGrowth extends SnakeObj
   void Render()
   {
     fill(collour);
-    pushMatrix();
-    translate(direction.x, direction.y);
-    rect(halfW, halfW, snakeWidth, snakeWidth);
-    popMatrix();
+    rect(direction.get(0).x, direction.get(0).y,snakeWidth, snakeWidth);
+  
   }
 }

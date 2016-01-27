@@ -13,6 +13,7 @@ class FoodLives extends SnakeObj implements PowerUp
   void applyTo(Snake snake)
   {
     snake.life ++;
+    
   }
   void Update()
   {
@@ -21,11 +22,9 @@ class FoodLives extends SnakeObj implements PowerUp
   void Render()
   {
     fill(collour);
-    pushMatrix();
-    translate(direction.x, direction.y);
     // display life
     fill(#FC0509);
-    rect(-halfW, -halfW, snakeWidth, snakeWidth);
-    popMatrix();
+    rect(-direction.get(0).x, direction.get(0).y, snakeWidth, snakeWidth);
+    
   }
 }
