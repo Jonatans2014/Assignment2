@@ -4,8 +4,10 @@ abstract class SnakeObj
 
   float foodW;
   int lives;
-  PVector direction;
+  ArrayList <PVector> direction;
   PVector backForth;
+  PVector LeftRight;
+  
   float snakeWidth;
   float halfW;
   color collour;
@@ -22,7 +24,9 @@ abstract class SnakeObj
   {
     
     backForth = new PVector(0, 20);
-    direction = new PVector(x,y);
+    LeftRight = new PVector(20,0);
+    direction = new  ArrayList<PVector>();
+    direction.add(new PVector(x,y));
     this.snakeWidth = snakeWidth;
     this.halfW = snakeWidth *0.5f;
   }

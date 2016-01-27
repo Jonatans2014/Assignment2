@@ -24,15 +24,13 @@ class Snake  extends SnakeObj
   {
     
     textSize(20);
-    pushMatrix();
-    translate(direction.x, direction.y);
     // display life
     fill(#FC0509);
     text("Life:"+life,textWH,textWH);
     fill(0);
-    rect(-halfW, -halfW, snakeWidth, snakeWidth);
+    rect(direction.x, direction.y, snakeWidth, snakeWidth);
     println(direction.x, direction.y);
-    popMatrix();
+   
     
     // add score
     
@@ -73,11 +71,11 @@ class Snake  extends SnakeObj
     }
     if (move == "d")
     {
-      direction.x += 20;
+      direction.add(LeftRight);
     }
     if (move == "a")
     {
-      direction.x -= 20;
+      direction.sub(LeftRight);
     }
   }
 
