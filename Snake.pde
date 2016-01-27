@@ -9,45 +9,58 @@ class Snake  extends SnakeObj
   float textWH;
   int score;
   int SnakeS;
+  float x;
+  float y;
   // constructor
-  
-  
+
+
   Snake()
   {
-    super(width*0.5f,height*0.5f,10);
+    super(width*0.5f, height*0.5f, 10);
     move = "w";
     life =0;
     textWH = width * 0.040f;
     score = 0;
+    SnakeS = 1;
+    x =0;
+    y =0;
   }
   // method to draw the snake
   void Render()
   {
-    
+
     textSize(20);
     // display life
     fill(#FC0509);
-    text("Life:"+life,textWH,textWH);
+    text("Life:"+life, textWH, textWH);
     fill(0);
-    rect(direction.get(0).x, direction.get(0).y, snakeWidth, snakeWidth);
-      
-     
-     
-     SnakeS = 1;
-     
-     if(SnakeS != SnakeSize)
-     {
-         println("this here"+SnakeSize);
-         for(int i = 0; i < SnakeSize -1; i++)
-         {
-            direction.add(new PVector(0,20));
-         }
-        println(SnakeSize -1);
+    
+    
+    
+    
+     if (SnakeS != SnakeSize)
+    {
+      println(SnakeSize-1);
+       
+          x = direction.get(SnakeSize-2).x;
+          y = direction.get(SnakeSize-2).y;
         
-        SnakeS = SnakeSize;
-     }
+       direction.add(new PVector((x+snakeWidth),(y+snakeWidth)));
+        
+      SnakeS = SnakeSize;
+      println(x,y);
+    }
+    
+    for (int i = 0; i < SnakeSize; i++)
+    {
+      
+      rect(direction.get(i).x, direction.get(i).y, snakeWidth, snakeWidth);
+      
+    }
+   
+  
     // add score
-    text("Score " + score,width*0.8,height*0.1);
+    text("Score " + score, width*0.8, height*0.1);
   }
 
   // method to move the snake
@@ -71,7 +84,6 @@ class Snake  extends SnakeObj
       {
         move = "a";
       }
-   
     }
 
     // if function to move 
@@ -81,7 +93,7 @@ class Snake  extends SnakeObj
     }
     if (move == "s")
     {
-     direction.get(0).add(backForth);
+      direction.get(0).add(backForth);
     }
     if (move == "d")
     {
@@ -93,7 +105,7 @@ class Snake  extends SnakeObj
     }
   }
 
-  
+
 
   // method to implement when its gonna be game over
   void gameover()
@@ -109,6 +121,5 @@ class Snake  extends SnakeObj
     {
       text("Game Over", width*0.3, height/2);
     }
-  
   }
 }
