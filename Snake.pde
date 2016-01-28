@@ -23,17 +23,16 @@ class Snake  extends SnakeObj
     score = 0;
     SnakeS = 1;
     
+    dir = new PVector(0,0);
     
   }
   // method to draw the snake
 
-
   void Render()
   {
-     direction.add(new PVector(direction.get(SnakeSize-1).x,direction.get(SnakeSize-1).y));
+     direction.add(new PVector(-10,-10));
 
     textSize(20);
-
     // display life
     fill(#FC0509);
     text("Life:"+life, textWH, textWH);
@@ -72,8 +71,6 @@ class Snake  extends SnakeObj
         move = "a";
       }
     }
-
-
    
       for (int j = SnakeSize -1; j > 0; j-- ) {
         
@@ -100,7 +97,8 @@ class Snake  extends SnakeObj
       }
     
 
- 
+     dir.x = direction.get(0).x;
+     dir.y = direction.get(0).y;
   }
 
 
