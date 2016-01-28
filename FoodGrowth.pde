@@ -8,9 +8,6 @@ class FoodGrowth extends SnakeObj
     collour= color(#FCFC05);
   }
 
-    
-    
-  
   void applyTo(Snake snake)
   {
     snake.score += 10;

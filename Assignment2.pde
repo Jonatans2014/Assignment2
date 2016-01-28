@@ -24,16 +24,12 @@ void draw()
   for (int i = SObj.size() -1; i >=0; i--)
   {
     SnakeObj sobj = SObj.get(i);
-    
-    
     sobj.Render();
     sobj.Update();
     
   }
   
-  
   snake.gameover();
-
 
   if (frameCount % 24 == 0)
   {
@@ -79,7 +75,7 @@ void checkCollisions()
               SObj.remove(other);
             } else if (other instanceof FoodGrowth)
             {
-                  snake.addS();
+               
               ((FoodGrowth) other).applyTo((Snake)sobj);
               SObj.remove(other);
             }

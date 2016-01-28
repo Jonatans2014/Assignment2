@@ -24,7 +24,7 @@ class FoodLives extends SnakeObj implements PowerUp
     fill(collour);
     // display life
     fill(#FC0509);
-    rect(-direction.get(0).x, direction.get(0).y, snakeWidth, snakeWidth);
+    rect(direction.get(0).x, direction.get(0).y, snakeWidth, snakeWidth);
     
   }
 }

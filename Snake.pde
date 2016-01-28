@@ -14,32 +14,23 @@ class Snake  extends SnakeObj
   PVector dir;
 
   // constructor
-
-
   Snake()
   {
     super(width*0.5f, height*0.5f, 10);
     move = "w";
-    life =0;
+    life = 0;
     textWH = width * 0.040f;
     score = 0;
     SnakeS = 1;
-    x =0;
-    y =0;
-    dir = new PVector(width*0.5f, height*0.5f);
+    
+    
   }
   // method to draw the snake
 
 
-
-
-
-  void addS()
-  {
-    direction.add(new PVector(direction.get(0).x,direction.get(0).y));
-  }
   void Render()
   {
+     direction.add(new PVector(direction.get(SnakeSize-1).x,direction.get(SnakeSize-1).y));
 
     textSize(20);
 
@@ -48,19 +39,11 @@ class Snake  extends SnakeObj
     text("Life:"+life, textWH, textWH);
     fill(0);
 
-
-    for (int i = SnakeSize -1; i> 0; i --)
-    {
-      stroke(255);
-    }
-
     for (int i = 0; i < SnakeSize; i++)
     {
+      stroke(255);
       rect(direction.get(i).x, direction.get(i).y, snakeWidth, snakeWidth);
     }  
-
-
-
     // add score
     text("Score " + score, width*0.8, height*0.1);
   }
@@ -91,11 +74,7 @@ class Snake  extends SnakeObj
     }
 
 
-
-
-    for (int i = 0; i < SnakeSize; i++)
-    {
-
+   
       for (int j = SnakeSize -1; j > 0; j-- ) {
         
        direction.get(j).x=  direction.get(j-1).x;
@@ -119,7 +98,7 @@ class Snake  extends SnakeObj
       {
         direction.get(0).sub(LeftRight);
       }
-    }
+    
 
  
   }
