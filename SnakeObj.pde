@@ -23,8 +23,8 @@ abstract class SnakeObj
   SnakeObj(float x, float y, float snakeWidth)
   {
     SnakeSize= 1;
-    backForth = new PVector(0, 20);
-    LeftRight = new PVector(20,0);
+    backForth = new PVector(0, 10);
+    LeftRight = new PVector(10,0);
     direction = new  ArrayList<PVector>();
     direction.add(new PVector(x,y));
     this.snakeWidth = snakeWidth;

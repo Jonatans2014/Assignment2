@@ -11,6 +11,8 @@ class Snake  extends SnakeObj
   int SnakeS;
   float x;
   float y;
+  PVector dir;
+
   // constructor
 
 
@@ -24,41 +26,41 @@ class Snake  extends SnakeObj
     SnakeS = 1;
     x =0;
     y =0;
+    dir = new PVector(width*0.5f, height*0.5f);
   }
   // method to draw the snake
+
+
+
+
+
+  void addS()
+  {
+    direction.add(new PVector(direction.get(0).x,direction.get(0).y));
+  }
   void Render()
   {
 
     textSize(20);
+
     // display life
     fill(#FC0509);
     text("Life:"+life, textWH, textWH);
     fill(0);
-    
-    
-    
-    
-     if (SnakeS != SnakeSize)
+
+
+    for (int i = SnakeSize -1; i> 0; i --)
     {
-      println(SnakeSize-1);
-       
-          x = direction.get(SnakeSize-2).x;
-          y = direction.get(SnakeSize-2).y;
-        
-       direction.add(new PVector((x+snakeWidth),(y+snakeWidth)));
-        
-      SnakeS = SnakeSize;
-      println(x,y);
+      stroke(255);
     }
-    
+
     for (int i = 0; i < SnakeSize; i++)
     {
-      
       rect(direction.get(i).x, direction.get(i).y, snakeWidth, snakeWidth);
-      
-    }
-   
-  
+    }  
+
+
+
     // add score
     text("Score " + score, width*0.8, height*0.1);
   }
@@ -66,6 +68,8 @@ class Snake  extends SnakeObj
   // method to move the snake
   void Update()
   {
+
+
     if (keyPressed)
     {
       if (key == 'w')
@@ -86,24 +90,40 @@ class Snake  extends SnakeObj
       }
     }
 
-    // if function to move 
-    if (move == "w")
+
+
+
+    for (int i = 0; i < SnakeSize; i++)
     {
-      direction.get(0).sub(backForth);
+
+      for (int j = SnakeSize -1; j > 0; j-- ) {
+        
+       direction.get(j).x=  direction.get(j-1).x;
+       direction.get(j).y=  direction.get(j-1).y;
+      } 
+
+      // if function to move 
+      if (move == "w")
+      {
+        direction.get(0).sub(backForth);
+      }
+      if (move == "s")
+      {
+        direction.get(0).add(backForth);
+      }
+      if (move == "d")
+      {
+        direction.get(0).add(LeftRight);
+      }
+      if (move == "a")
+      {
+        direction.get(0).sub(LeftRight);
+      }
     }
-    if (move == "s")
-    {
-      direction.get(0).add(backForth);
-    }
-    if (move == "d")
-    {
-      direction.get(0).add(LeftRight);
-    }
-    if (move == "a")
-    {
-      direction.get(0).sub(LeftRight);
-    }
+
+ 
   }
+
 
 
 
