@@ -1,7 +1,6 @@
 class FoodLives extends SnakeObj implements PowerUp
 {
-    
-  
+   
   //constructor
   FoodLives()
   {

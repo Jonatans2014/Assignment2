@@ -99,9 +99,14 @@ class Snake  extends SnakeObj
 
      dir.x = direction.get(0).x;
      dir.y = direction.get(0).y;
+     
+     
+     
+
   }
 
 
+  
 
 
   // method to implement when its gonna be game over
