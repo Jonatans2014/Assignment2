@@ -106,22 +106,6 @@ class Snake  extends SnakeObj
   }
 
 
-  
-
-
   // method to implement when its gonna be game over
-  void gameover()
-  {
-
-    textSize(32);
-    // if function when it is less than 10 and more than 490 a its gonna show game over
-    if (direction.get(0).y < height -(height-snakeWidth) ||direction.get(0).y >height - snakeWidth)
-    {
-      text("Game Over", width*0.3, height/2);
-    }
-    if (direction.get(0).x < width -(width-snakeWidth) || direction.get(0).x > width - snakeWidth)
-    {
-      text("Game Over", width*0.3, height/2);
-    }
-  }
+  
 }

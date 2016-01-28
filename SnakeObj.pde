@@ -34,6 +34,6 @@ abstract class SnakeObj
 
   abstract void Render();
   abstract void Update();
-
+ 
   
 }

@@ -4,12 +4,12 @@ ArrayList<SnakeObj> SObj = new ArrayList<SnakeObj>();
 void setup ()
 {
   size(500, 500);
-
-  snake = new Snake();
-
-  //adding object snake to the arrayList
-  SObj.add(snake);
   frameRate(20);
+  
+  SnakeObj Snakeadd =  new Snake();
+  
+  SObj.add(Snakeadd);
+ 
 }
 
 Snake snake;
@@ -17,16 +17,8 @@ Snake snake;
 void draw()
 {
   background(255);
-
-  // running methods in the arraylist and passing values fromt he arraylis to the superclass
-  for (int i = SObj.size() -1; i >=0; i--)
-  {
-    SnakeObj sobj = SObj.get(i);
-    sobj.Render();
-    sobj.Update();
-  }
-
-  snake.gameover();
+  
+  GameStartStop();
 
   // instance of baseclass
   SnakeObj SnakeFoods = null;
@@ -44,9 +36,6 @@ void draw()
     SObj.add(SnakeFoods);
   }
 
-
-
-
   checkSPowerUpcolli();
   checkSnakeColli();
 }
@@ -54,24 +43,39 @@ void draw()
 
 
 
+void GameStartStop()
+{
+    // running methods in the arraylist and passing values fromt he arraylis to the superclass
+  for (int i = SObj.size() -1; i >=0; i--)
+  {
+    SnakeObj sobj = SObj.get(i);
+    sobj.Render();
+    sobj.Update();
+  }
+
+ 
+}
+
 void checkSnakeColli()
 {
+  
+
   for (int i =  SObj.size()-1; i >= 0; i--)
   {
     SnakeObj sbj = SObj.get(i);
     
-    if(sbj instanceof Snake)
+    if (sbj instanceof Snake)
     {
-      for(int j = 1; j < sbj.SnakeSize; j ++)
+      for (int j = 1; j < sbj.SnakeSize; j ++)
       {
-        
-        
-      if(sbj.direction.get(0).dist(sbj.direction.get(j)) < sbj.snakeWidth -10)
-      {
-        println(sbj.direction.get(0).dist(sbj.direction.get(j)));
-        
-          snake.gameover();
-      }
+        if (sbj.direction.get(0).dist(sbj.direction.get(j)) < sbj.snakeWidth)
+        {
+          println(sbj.direction.get(0).dist(sbj.direction.get(j)));
+           
+           text("gameOver",width/2,height/2);
+
+          
+        }
       }
     }
   }
@@ -91,11 +95,11 @@ void checkSPowerUpcolli()
         {
           if (sobj.direction.get(0).dist(other.direction.get(0)) < sobj.snakeWidth + other.snakeWidth)
           {
-            
+
 
             if (other instanceof FoodLives)
             {
-              
+
               ((FoodLives) other).applyTo((Snake)sobj);
               SObj.remove(other);
             } else if (other instanceof FoodGrowth)
