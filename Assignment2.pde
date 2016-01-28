@@ -18,7 +18,7 @@ void draw()
 {
   background(255);
   
-  GameStartStop();
+  GameStart();
 
   // instance of baseclass
   SnakeObj SnakeFoods = null;
@@ -43,7 +43,7 @@ void draw()
 
 
 
-void GameStartStop()
+void GameStart()
 {
     // running methods in the arraylist and passing values fromt he arraylis to the superclass
   for (int i = SObj.size() -1; i >=0; i--)
@@ -52,8 +52,7 @@ void GameStartStop()
     sobj.Render();
     sobj.Update();
   }
-
- 
+  
 }
 
 void checkSnakeColli()
@@ -68,12 +67,21 @@ void checkSnakeColli()
     {
       for (int j = 1; j < sbj.SnakeSize; j ++)
       {
+        
+        if(sbj.direction.get(0).x <= 0 || sbj.direction.get(0).x > width - sbj.snakeWidth || sbj.direction.get(0).y <0 || sbj.direction.get(0).y > height - sbj.snakeWidth  )
+        {
+          
+                println("game over play again yes or no?");
+        }
+        
+        
+        
+        // check collision with own snake
         if (sbj.direction.get(0).dist(sbj.direction.get(j)) < sbj.snakeWidth)
         {
           println(sbj.direction.get(0).dist(sbj.direction.get(j)));
            
            text("gameOver",width/2,height/2);
-
           
         }
       }
