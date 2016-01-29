@@ -104,8 +104,4 @@ class Snake  extends SnakeObj
      
 
   }
-
-
-  // method to implement when its gonna be game over
-  
 }
