@@ -7,15 +7,19 @@ PImage bg;
 
 void setup ()
 {
-  
-   
+    
+    println(mouseX,mouseY);
   size(1000,800);
   frameRate(20);
   background(255);
   SnakeObj Snakeadd =  new Snake();
-  SnakeObj SnakeLevel1 =  new Level1();
+  //SnakeObj SnakeLevel1 =  new Level1();
+  SnakeObj SnakeLevel2 =  new Level2();
+
   SObj.add(Snakeadd);
-  SObj.add( SnakeLevel1);
+  //SObj.add( SnakeLevel1);
+ SObj.add( SnakeLevel2);
+  
   
   //load image
   bg = loadImage("snakeB1.jpg");
@@ -24,8 +28,9 @@ void setup ()
 
 void draw()
 {
- background(255);
-   println(mouseX,mouseY);
+  println(mouseX,mouseY);
+  background(255);
+    
   Gameover game = new Gameover();
   //stop or starting the game
   if (gameT == true )
@@ -104,10 +109,11 @@ void checkSPowerUpcolli()
     {
       for (int j = SObj.size() -1; j >=0; j--)
       {
+
         SnakeObj other =  SObj.get(j);
         if (other instanceof FoodLives || other instanceof FoodGrowth )
         {
-          if (sobj.direction.get(0).dist(other.direction.get(0)) < sobj.snakeWidth)
+          if (sobj.direction.get(0).dist(other.direction.get(0)) < sobj.snakeWidth+4)
           {
             if (other instanceof FoodLives)
             {
