@@ -9,7 +9,7 @@ abstract class SnakeObj
   PVector LeftRight;
   int SnakeSize;
   float snakeWidth;
-  float halfW;
+  
   color collour;
 
 
@@ -28,7 +28,7 @@ abstract class SnakeObj
     direction = new  ArrayList<PVector>();
     direction.add(new PVector(x,y));
     this.snakeWidth = snakeWidth;
-    this.halfW = snakeWidth *0.5f;
+    
   }
 
 

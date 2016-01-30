@@ -17,28 +17,21 @@ void setup ()
 void draw()
 {
 
-
-
   background(255);
   Gameover game = new Gameover();
-  
-  
-  
   //stop or starting the game
-  if(gameT == true )
+  if (gameT == true )
   {
     GameStart();
-  }
-  else
+  } else
   {
     game.Display();
-    
   }
   // instance of baseclass
   SnakeObj SnakeFoods = null;
 
   // creating powerups lives and foodGrowth
-  if (frameCount % 24 == 0)
+  if (frameCount % 60 == 0)
   {
     SnakeFoods =  new FoodGrowth();
     SObj.add(SnakeFoods);
@@ -68,35 +61,31 @@ void GameStart()
   }
 }
 
-
-
 void checkSnakeColli()
 {
 
 
   for (int i =  SObj.size()-1; i >= 0; i--)
   {
+
     SnakeObj sbj = SObj.get(i);
 
     if (sbj instanceof Snake)
     {
-      for (int j = 1; j < sbj.SnakeSize; j ++)
+
+      for (int j = 1; j <= sbj.SnakeSize; j ++)
       {
 
-        if (sbj.direction.get(0).x <= 0 || sbj.direction.get(0).x > width - sbj.snakeWidth || sbj.direction.get(0).y <0 || sbj.direction.get(0).y > height - sbj.snakeWidth  )
+        if (sbj.direction.get(0).x < 0|| sbj.direction.get(0).y < 0 || sbj.direction.get(0).x > width || sbj.direction.get(0).y > height  )
         {
-
-
           gameT = false;
         }
-
-
 
         // check collision with own snake
         if (sbj.direction.get(0).dist(sbj.direction.get(j)) < sbj.snakeWidth)
         {
+          
           gameT = false;
-          println(sbj.direction.get(0).dist(sbj.direction.get(j)));
         }
       }
     }
@@ -115,18 +104,14 @@ void checkSPowerUpcolli()
         SnakeObj other =  SObj.get(j);
         if (other instanceof FoodLives || other instanceof FoodGrowth )
         {
-          if (sobj.direction.get(0).dist(other.direction.get(0)) < sobj.snakeWidth + other.snakeWidth)
+          if (sobj.direction.get(0).dist(other.direction.get(0)) < sobj.snakeWidth)
           {
-
-
             if (other instanceof FoodLives)
             {
-
               ((FoodLives) other).applyTo((Snake)sobj);
               SObj.remove(other);
             } else if (other instanceof FoodGrowth)
             {
-
               ((FoodGrowth) other).applyTo((Snake)sobj);
               SObj.remove(other);
             }

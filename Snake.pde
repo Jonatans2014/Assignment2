@@ -22,20 +22,19 @@ class Snake  extends SnakeObj
     textWH = width * 0.040f;
     score = 0;
     SnakeS = 1;
-    
-    dir = new PVector(0,0);
-    
+
+    dir = new PVector(0, 0);
   }
   // method to draw the snake
 
   void Render()
   {
-     direction.add(new PVector(-10,-10));
 
     textSize(20);
+    direction.add(new PVector(-snakeWidth, -snakeWidth));
     // display life
     fill(#FC0509);
-    text("Life:"+life, textWH, textWH);
+    text("Life:"+life, textWH, height*0.1);
     fill(0);
 
     for (int i = 0; i < SnakeSize; i++)
@@ -71,37 +70,33 @@ class Snake  extends SnakeObj
         move = "a";
       }
     }
-   
-      for (int j = SnakeSize -1; j > 0; j-- ) {
-        
-       direction.get(j).x=  direction.get(j-1).x;
-       direction.get(j).y=  direction.get(j-1).y;
-      } 
 
-      // if function to move 
-      if (move == "w")
-      {
-        direction.get(0).sub(backForth);
-      }
-      if (move == "s")
-      {
-        direction.get(0).add(backForth);
-      }
-      if (move == "d")
-      {
-        direction.get(0).add(LeftRight);
-      }
-      if (move == "a")
-      {
-        direction.get(0).sub(LeftRight);
-      }
-    
+    for (int j = SnakeSize -1; j > 0; j-- ) {
 
-     dir.x = direction.get(0).x;
-     dir.y = direction.get(0).y;
-     
-     
-     
+      direction.get(j).x=  direction.get(j-1).x;
+      direction.get(j).y=  direction.get(j-1).y;
+    } 
 
+    // if function to move 
+    if (move == "w")
+    {
+      direction.get(0).sub(backForth);
+    }
+    if (move == "s")
+    {
+      direction.get(0).add(backForth);
+    }
+    if (move == "d")
+    {
+      direction.get(0).add(LeftRight);
+    }
+    if (move == "a")
+    {
+      direction.get(0).sub(LeftRight);
+    }
+
+
+    dir.x = direction.get(0).x;
+    dir.y = direction.get(0).y;
   }
 }
