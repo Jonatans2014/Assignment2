@@ -5,7 +5,7 @@ class FoodGrowth extends SnakeObj
   FoodGrowth()
   {
     super(random(10, width-10), random(10, height-10), 10);
-    collour= color(#FCFC05);
+    collour= color(#FC0509);
   }
 
   void applyTo(Snake snake)
@@ -13,16 +13,11 @@ class FoodGrowth extends SnakeObj
     snake.score += 10;
     snake.SnakeSize ++;
   }
- 
-  void Update()
-  {
-    
-  }
 
   void Render()
   {
     fill(collour);
-    rect(direction.get(0).x, direction.get(0).y,snakeWidth, snakeWidth);
+    ellipse(direction.get(0).x, direction.get(0).y,snakeWidth, snakeWidth);
   
   }
 }

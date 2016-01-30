@@ -3,21 +3,29 @@ ArrayList<SnakeObj> SObj = new ArrayList<SnakeObj>();
 
 // globa boolean
 boolean gameT = true;
+PImage bg;
+
 void setup ()
 {
-  size(500, 500);
+  
+   
+  size(1000,800);
   frameRate(20);
   background(255);
   SnakeObj Snakeadd =  new Snake();
-
+  SnakeObj SnakeLevel1 =  new Level1();
   SObj.add(Snakeadd);
+  SObj.add( SnakeLevel1);
+  
+  //load image
+  bg = loadImage("snakeB1.jpg");
 }
 
 
 void draw()
 {
-
-  background(255);
+ background(255);
+   println(mouseX,mouseY);
   Gameover game = new Gameover();
   //stop or starting the game
   if (gameT == true )
@@ -37,7 +45,7 @@ void draw()
     SObj.add(SnakeFoods);
   }
 
-  if (frameCount % 124 == 0)
+  if (frameCount % 160 == 0)
   {
     SnakeFoods =  new FoodLives(); 
     SObj.add(SnakeFoods);
@@ -67,24 +75,19 @@ void checkSnakeColli()
 
   for (int i =  SObj.size()-1; i >= 0; i--)
   {
-
     SnakeObj sbj = SObj.get(i);
 
     if (sbj instanceof Snake)
     {
-
       for (int j = 1; j <= sbj.SnakeSize; j ++)
       {
-
-        if (sbj.direction.get(0).x < 0|| sbj.direction.get(0).y < 0 || sbj.direction.get(0).x > width || sbj.direction.get(0).y > height  )
+        if (sbj.direction.get(0).x < 0|| sbj.direction.get(0).y < 0 || sbj.direction.get(0).x > width-5 || sbj.direction.get(0).y > height-5  )
         {
           gameT = false;
         }
-
         // check collision with own snake
         if (sbj.direction.get(0).dist(sbj.direction.get(j)) < sbj.snakeWidth)
-        {
-          
+        {         
           gameT = false;
         }
       }
