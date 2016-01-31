@@ -16,7 +16,7 @@ class Snake  extends SnakeObj
   // constructor
   Snake()
   {
-    super(width*0.5f, height*0.5f, 10);
+    super(width*0.6f, height*0.5f, 10);
     move = "w";
     life = 0;
     textWH = width * 0.040f;
@@ -50,7 +50,7 @@ class Snake  extends SnakeObj
   void Update()
   {
 
-
+    
     if (keyPressed)
     {
       if (key == 'w')
@@ -69,6 +69,8 @@ class Snake  extends SnakeObj
       {
         move = "a";
       }
+      
+      
     }
 
     for (int j = SnakeSize -1; j > 0; j-- ) {

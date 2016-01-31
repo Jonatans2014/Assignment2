@@ -7,20 +7,20 @@ PImage bg;
 
 void setup ()
 {
-    
-    println(mouseX,mouseY);
-  size(1000,800);
+
+
+  size(1000, 800);
   frameRate(20);
   background(255);
   SnakeObj Snakeadd =  new Snake();
-  //SnakeObj SnakeLevel1 =  new Level1();
-  SnakeObj SnakeLevel2 =  new Level2();
+  SnakeObj SnakeLevel1 =  new Level1();
+  //SnakeObj SnakeLevel2 =  new Level2();
 
   SObj.add(Snakeadd);
-  //SObj.add( SnakeLevel1);
- SObj.add( SnakeLevel2);
-  
-  
+  SObj.add( SnakeLevel1);
+  //SObj.add( SnakeLevel2);
+
+
   //load image
   bg = loadImage("snakeB1.jpg");
 }
@@ -28,9 +28,9 @@ void setup ()
 
 void draw()
 {
-  println(mouseX,mouseY);
+  
   background(255);
-    
+
   Gameover game = new Gameover();
   //stop or starting the game
   if (gameT == true )
@@ -66,7 +66,7 @@ void draw()
 void GameStart()
 {
   // running methods in the arraylist and passing values from he arraylis to the superclass
-  for (int i = SObj.size() -1; i >=0; i--)
+  for (int i = SObj.size () -1; i >=0; i--)
   {
     SnakeObj sobj = SObj.get(i);
     sobj.Render();
@@ -81,15 +81,53 @@ void checkSnakeColli()
   for (int i =  SObj.size()-1; i >= 0; i--)
   {
     SnakeObj sbj = SObj.get(i);
+    if (sbj instanceof Snake)
+    {
+      // check collision with the levels structures
+      for (int l = SObj.size() -1; l >= 0; l--)
+      {
+
+        SnakeObj levelCheck = SObj.get(l);
+        if (levelCheck instanceof Level1  )
+        {
+          for (int c = 0; c < levelCheck.levelsquares.size(); c++ )
+          {
+            if (sbj.direction.get(0).dist(levelCheck.levelsquares.get(c)) < sbj.snakeWidth)
+            {
+              gameT = false;
+            }
+          }
+            
+           
+      }
+        
+        
+        
+      }
+    }
+    
+           println( sbj.levelsquares.size()); 
+  }
+  
+  
+  
+  
+  
+  /// other collision
+  for (int i =  SObj.size ()-1; i >= 0; i--)
+  {
+    SnakeObj sbj = SObj.get(i);
 
     if (sbj instanceof Snake)
     {
       for (int j = 1; j <= sbj.SnakeSize; j ++)
       {
+        /*
         if (sbj.direction.get(0).x < 0|| sbj.direction.get(0).y < 0 || sbj.direction.get(0).x > width-5 || sbj.direction.get(0).y > height-5  )
-        {
-          gameT = false;
-        }
+         {
+         gameT = false;
+         }
+         */
         // check collision with own snake
         if (sbj.direction.get(0).dist(sbj.direction.get(j)) < sbj.snakeWidth)
         {         
@@ -102,12 +140,12 @@ void checkSnakeColli()
 // implementing collisions
 void checkSPowerUpcolli()
 {
-  for (int i= SObj.size() -1; i >= 0; i--)
+  for (int i= SObj.size () -1; i >= 0; i--)
   {
     SnakeObj sobj = SObj.get(i);
     if (sobj instanceof Snake)
     {
-      for (int j = SObj.size() -1; j >=0; j--)
+      for (int j = SObj.size () -1; j >=0; j--)
       {
 
         SnakeObj other =  SObj.get(j);
@@ -130,3 +168,4 @@ void checkSPowerUpcolli()
     }
   }
 }
+
