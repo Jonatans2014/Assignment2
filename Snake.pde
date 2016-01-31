@@ -16,7 +16,7 @@ class Snake  extends SnakeObj
   // constructor
   Snake()
   {
-    super(width*0.6f, height*0.5f, 10);
+    super(width*0.9f, height*0.5f, 10);
     move = "w";
     life = 0;
     textWH = width * 0.040f;
