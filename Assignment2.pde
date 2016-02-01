@@ -8,9 +8,8 @@ PImage bg;
 void setup ()
 {
 
-
   size(1000, 800);
-  frameRate(20);
+  frameRate(25);
   background(255);
   SnakeObj Snakeadd =  new Snake();
   //SnakeObj SnakeLevel1 =  new Level1();
@@ -87,7 +86,7 @@ void checkSnakeColli()
       {
 
         SnakeObj levelCheck = SObj.get(l);
-          if (levelCheck instanceof Level1 || levelCheck instanceof  Level2 )
+        if (levelCheck instanceof Level1 || levelCheck instanceof  Level2 )
         {
           for (int c = 0; c < levelCheck.levelsquares.size (); c++ )
           {
@@ -114,14 +113,15 @@ void checkSnakeColli()
     {
       for (int j = 1; j <= sbj.SnakeSize; j ++)
       {
-        /*
+          /*
         if (sbj.direction.get(0).x < 0|| sbj.direction.get(0).y < 0 || sbj.direction.get(0).x > width-5 || sbj.direction.get(0).y > height-5  )
-         {
-         gameT = false;
-         }
-         */
+        {
+          gameT = false;
+        }
+        */
+
         // check collision with own snake
-        if (sbj.direction.get(0).dist(sbj.direction.get(j)) < sbj.snakeWidth)
+        if (sbj.direction.get(0).dist(sbj.direction.get(j)) < sbj.snakeWidth-2)
         {         
           gameT = false;
         }

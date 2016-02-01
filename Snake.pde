@@ -98,6 +98,26 @@ class Snake  extends SnakeObj
     }
 
 
+  // code to come out from anothe border
+  if (direction.get(0).x < 0)
+    {
+      direction.get(0).x = width;
+    }
+    
+    if (direction.get(0).x > width)
+    {
+      direction.get(0).x = 0;
+    }
+    
+    if (direction.get(0).y < 0)
+    {
+     direction.get(0).y = height;
+    }
+    
+    if (direction.get(0).y > height)
+    {
+      direction.get(0).y = 0;
+    }
     dir.x = direction.get(0).x;
     dir.y = direction.get(0).y;
   }
