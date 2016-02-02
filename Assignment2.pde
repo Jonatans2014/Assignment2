@@ -8,23 +8,20 @@ int ScoreB;
 boolean ScoreC = true;
 
 SnakeObj levels = null;
-
+SnakeObj Snakeadd;
 void setup ()
 {
   size(1000, 800);
   frameRate(25);
   background(255);
-  SnakeObj Snakeadd =  new Snake();
+  Snakeadd =  new Snake();
   SObj.add(Snakeadd);
-  //SObj.add( SnakeLevel1);
-  //SObj.add( SnakeLevel2);
+  
   bg = loadImage("snakeB1.jpg");
 }
 
 
 
-
-SnakeObj SnakeLevel2;
 void GameLevel()
 {
 
@@ -35,8 +32,7 @@ void GameLevel()
     ScoreB = 0;
   } else if (check.score >= 10 && ScoreC == false)
   {
-    
-   
+
     ScoreB = 1;
   }
 }
@@ -44,25 +40,26 @@ void GameLevel()
 void draw()
 {
   background(255);
-  GameLevel();
 
+  //calling method to change levels
+  GameLevel();
   switch (ScoreB)
   {
   case 0:
     SObj.remove(levels);
     levels = new Level1();
     SObj.add(levels);
-
-
     ScoreC = false;
+
     break;
   case 1:
 
     SObj.remove(levels);
+
     frameRate(25);
     levels = new Level2();
     SObj.add(levels);
-    println(SObj.size());
+
     ScoreC = true;
 
     break;
@@ -151,15 +148,8 @@ void checkSnakeColli()
 
     if (sbj instanceof Snake)
     {
-      for (int j = 1; j <= sbj.SnakeSize; j ++)
+      for (int j = 1; j < sbj.SnakeSize; j ++)
       {
-        /*
-        if (sbj.direction.get(0).x < 0|| sbj.direction.get(0).y < 0 || sbj.direction.get(0).x > width-5 || sbj.direction.get(0).y > height-5  )
-         {
-         gameT = false;
-         }
-         */
-
         // check collision with own snake
         if (sbj.direction.get(0).dist(sbj.direction.get(j)) < sbj.snakeWidth-2)
         {         
@@ -183,7 +173,7 @@ void checkSPowerUpcolli()
         SnakeObj other =  SObj.get(j);
         if (other instanceof FoodLives || other instanceof FoodGrowth )
         {
-          if (sobj.direction.get(0).dist(other.direction.get(0)) < sobj.snakeWidth+4)
+          if (sobj.direction.get(0).dist(other.direction.get(0)) < sobj.snakeWidth+sobj.snakeWidth)
           {
             if (other instanceof FoodLives)
             {

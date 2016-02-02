@@ -52,18 +52,20 @@ class Snake  extends SnakeObj
       if (keyCode == UP) {
         move = "w";
       }
-        if (keyCode == DOWN) {
+      if (keyCode == DOWN) {
         move = "s";
       }
       if (keyCode == RIGHT) {
         move = "d";
       }
-       if (keyCode == LEFT) {
+      if (keyCode == LEFT) {
         move = "a";
       }
     }
+
+
+    //switch case
    
-    
 
     for (int j = SnakeSize -1; j > 0; j-- ) {
 
@@ -76,6 +78,7 @@ class Snake  extends SnakeObj
     // if function to move 
     if (move == "w")
     {
+
       direction.get(0).sub(backForth);
     }
     if (move == "s")

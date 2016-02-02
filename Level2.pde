@@ -5,6 +5,7 @@ class Level2 extends SnakeObj
   {
     super(width, height*0.6, 10);    
     collour =  color(#A52A2A);
+    move = null;
   }
 
 
@@ -12,19 +13,20 @@ class Level2 extends SnakeObj
   {
 
     fill(collour);
-
+      
+      move = null;
     for (int i =1; i <=  width*0.042; i ++)
     {  
-      levelsquares.add(new PVector(0, 500 +(10 * i)));
-      levelsquares.add(new PVector(0, -50+(10 * i)));
-      levelsquares.add(new PVector(990, -50+(10 * i)));
-      levelsquares.add(new PVector((0  +(10 *i)), 790));
-      levelsquares.add(new PVector(990, 500+(10*i)));
-      levelsquares.add(new PVector((990  -(10 *i)), 790));
+      levelsquares.add(new PVector(0, height*0.625 +(10 * i)));
+      levelsquares.add(new PVector(0, -height*0.0625+(10 * i)));
+      levelsquares.add(new PVector(width*0.99, -height*0.0625+(10 * i)));
+      levelsquares.add(new PVector((0  +(10 *i)), height*0.9875));
+      levelsquares.add(new PVector(width*0.99, height*0.625+(10*i)));
+      levelsquares.add(new PVector((width*0.99 -(10 *i)), height*0.9875));
       levelsquares.add(new PVector((0+(10 *i)), 0));
-      levelsquares.add(new PVector((-10+(10 *i)), 450));
-      levelsquares.add(new PVector((990-(10 *i)), 0));
-      levelsquares.add(new PVector((1000-(10 *i)), 450));
+      levelsquares.add(new PVector((-width*0.010+(10 *i)), height * 0.5625));
+      levelsquares.add(new PVector((width*0.99-(10 *i)), 0));
+      levelsquares.add(new PVector((width-(10 *i)), height * 0.5625));
     }
 
 
