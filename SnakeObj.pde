@@ -6,12 +6,14 @@ abstract class SnakeObj
   int lives;
   ArrayList <PVector> direction;
   ArrayList <PVector> levelsquares;
+  int score;
   PVector backForth;
   PVector LeftRight;
   int SnakeSize;
   float snakeWidth;
   color collour;
-
+  String move;
+  
 
   SnakeObj()
   {
@@ -30,6 +32,8 @@ abstract class SnakeObj
     direction.add(new PVector(x, y));
     levelsquares.add(new PVector(x, y));
     this.snakeWidth = snakeWidth;
+    score = 0;
+    move = null;
   }
 
 
@@ -38,3 +42,4 @@ abstract class SnakeObj
   {
   }
 }
+

@@ -3,11 +3,9 @@
 class Snake  extends SnakeObj
 {
   // Field
-
-  String move;
+ 
   int life;
   float textWH;
-  int score;
   int SnakeS;
   float x;
   float y;
@@ -17,7 +15,7 @@ class Snake  extends SnakeObj
   Snake()
   {
     super(width*0.9f, height*0.5f, 10);
-    move = "w";
+    
     life = 0;
     textWH = width * 0.040f;
     score = 0;
@@ -96,7 +94,8 @@ class Snake  extends SnakeObj
     {
       direction.get(0).sub(LeftRight);
     }
-
+    
+    
 
   // code to come out from anothe border
   if (direction.get(0).x < 0)

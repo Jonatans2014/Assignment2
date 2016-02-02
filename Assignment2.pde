@@ -4,31 +4,73 @@ ArrayList<SnakeObj> SObj = new ArrayList<SnakeObj>();
 // globa boolean
 boolean gameT = true;
 PImage bg;
+int ScoreB;
+boolean ScoreC = true;
+
+SnakeObj levels = null;
 
 void setup ()
 {
-
   size(1000, 800);
   frameRate(25);
   background(255);
   SnakeObj Snakeadd =  new Snake();
-  //SnakeObj SnakeLevel1 =  new Level1();
-  SnakeObj SnakeLevel2 =  new Level2();
-
   SObj.add(Snakeadd);
   //SObj.add( SnakeLevel1);
-  SObj.add( SnakeLevel2);
-
-
-  //load image
+  //SObj.add( SnakeLevel2);
   bg = loadImage("snakeB1.jpg");
 }
 
 
+
+
+SnakeObj SnakeLevel2;
+void GameLevel()
+{
+
+  SnakeObj check = SObj.get(0);
+
+  if (check.score == 0 &&  ScoreC  == true)
+  {
+    ScoreB = 0;
+  } else if (check.score >= 10 && ScoreC == false)
+  {
+    
+   
+    ScoreB = 1;
+  }
+}
+
 void draw()
 {
-  println(mouseX, mouseY);
   background(255);
+  GameLevel();
+
+  switch (ScoreB)
+  {
+  case 0:
+    SObj.remove(levels);
+    levels = new Level1();
+    SObj.add(levels);
+
+
+    ScoreC = false;
+    break;
+  case 1:
+
+    SObj.remove(levels);
+    frameRate(25);
+    levels = new Level2();
+    SObj.add(levels);
+    println(SObj.size());
+    ScoreC = true;
+
+    break;
+  }
+
+
+
+  // calling method
   Gameover game = new Gameover();
   //stop or starting the game
   if (gameT == true )
@@ -74,8 +116,6 @@ void GameStart()
 
 void checkSnakeColli()
 {
-
-
   for (int i =  SObj.size ()-1; i >= 0; i--)
   {
     SnakeObj sbj = SObj.get(i);
@@ -113,12 +153,12 @@ void checkSnakeColli()
     {
       for (int j = 1; j <= sbj.SnakeSize; j ++)
       {
-          /*
+        /*
         if (sbj.direction.get(0).x < 0|| sbj.direction.get(0).y < 0 || sbj.direction.get(0).x > width-5 || sbj.direction.get(0).y > height-5  )
-        {
-          gameT = false;
-        }
-        */
+         {
+         gameT = false;
+         }
+         */
 
         // check collision with own snake
         if (sbj.direction.get(0).dist(sbj.direction.get(j)) < sbj.snakeWidth-2)

@@ -13,7 +13,7 @@ class Level2 extends SnakeObj
 
     fill(collour);
 
-    for (int i =1; i <=42; i ++)
+    for (int i =1; i <=  width*0.042; i ++)
     {  
       levelsquares.add(new PVector(0, 500 +(10 * i)));
       levelsquares.add(new PVector(0, -50+(10 * i)));
@@ -29,7 +29,7 @@ class Level2 extends SnakeObj
 
 
 
-    for (int i = 0; i <=420; i++)
+    for (int i = 0; i <=width*0.42; i++)
     {
       rect( levelsquares.get(i).x, levelsquares.get(i).y, snakeWidth, snakeWidth);
     }

@@ -1,11 +1,10 @@
 class Level1 extends SnakeObj
 {
-
-
   // constructor
   Level1()
   {
-
+      
+    super(width,height,10);
     collour =  color(#A52A2A);
   }
 
@@ -29,7 +28,7 @@ class Level1 extends SnakeObj
 
 
 
-    for (int i = 1; i <=width *0.12; i++)
+    for (int i = 0; i <=width *0.12; i++)
     {
       rect( levelsquares.get(i).x, levelsquares.get(i).y, snakeWidth, snakeWidth);
     }
