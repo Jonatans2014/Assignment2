@@ -3,7 +3,7 @@
 class Snake  extends SnakeObj
 {
   // Field
- 
+
   int life;
   float textWH;
   int SnakeS;
@@ -15,7 +15,7 @@ class Snake  extends SnakeObj
   Snake()
   {
     super(width*0.9f, height*0.5f, 10);
-    
+
     life = 0;
     textWH = width * 0.040f;
     score = 0;
@@ -48,34 +48,30 @@ class Snake  extends SnakeObj
   void Update()
   {
 
-    
-    if (keyPressed)
-    {
-      if (key == 'w')
-      {
+    if (key == CODED) {
+      if (keyCode == UP) {
         move = "w";
       }
-      if (key == 's')
-      {
+        if (keyCode == DOWN) {
         move = "s";
       }
-      if (key == 'd')
-      {
+      if (keyCode == RIGHT) {
         move = "d";
       }
-      if (key == 'a')
-      {
+       if (keyCode == LEFT) {
         move = "a";
       }
-      
-      
     }
+   
+    
 
     for (int j = SnakeSize -1; j > 0; j-- ) {
 
       direction.get(j).x=  direction.get(j-1).x;
       direction.get(j).y=  direction.get(j-1).y;
     } 
+
+
 
     // if function to move 
     if (move == "w")
@@ -94,25 +90,25 @@ class Snake  extends SnakeObj
     {
       direction.get(0).sub(LeftRight);
     }
-    
-    
 
-  // code to come out from anothe border
-  if (direction.get(0).x < 0)
+
+
+    // code to come out from anothe border
+    if (direction.get(0).x < 0)
     {
       direction.get(0).x = width;
     }
-    
+
     if (direction.get(0).x > width)
     {
       direction.get(0).x = 0;
     }
-    
+
     if (direction.get(0).y < 0)
     {
-     direction.get(0).y = height;
+      direction.get(0).y = height;
     }
-    
+
     if (direction.get(0).y > height)
     {
       direction.get(0).y = 0;
@@ -121,3 +117,4 @@ class Snake  extends SnakeObj
     dir.y = direction.get(0).y;
   }
 }
+
