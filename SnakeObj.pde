@@ -34,11 +34,17 @@ abstract class SnakeObj
     this.snakeWidth = snakeWidth;
     score = 0;
     move = null;
+    
+     lives = 3;
   }
 
 
   abstract void Render();
   void Update()
+  {
+  }
+  
+  void Reset()
   {
   }
 }

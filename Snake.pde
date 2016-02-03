@@ -4,7 +4,6 @@ class Snake  extends SnakeObj
 {
   // Field
 
-  int life;
   float textWH;
   int SnakeS;
   float x;
@@ -15,16 +14,25 @@ class Snake  extends SnakeObj
   Snake()
   {
     super(width*0.9f, height*0.5f, 10);
-
-    life = 0;
     textWH = width * 0.040f;
-    score = 0;
+    score = 300;
     SnakeS = 1;
-
+    lives = 3;
+    x = width/3;
+    y = height/3;
     dir = new PVector(0, 0);
   }
   // method to draw the snake
 
+
+
+  void Reset()
+  {
+    
+    direction.get(0).x = x;
+    direction.get(0).y = y;
+    rect(direction.get(0).x, direction.get(0).y, snakeWidth, snakeWidth);
+  }
   void Render()
   {
 
@@ -32,7 +40,7 @@ class Snake  extends SnakeObj
     direction.add(new PVector(-snakeWidth, -snakeWidth));
     // display life
     fill(#FC0509);
-    text("Life:"+life, textWH, height*0.1);
+    text("Life:"+lives, textWH, height*0.1);
     fill(0);
 
     for (int i = 0; i < SnakeSize; i++)

@@ -4,16 +4,18 @@ class FoodLives extends SnakeObj implements PowerUp
   //constructor
   FoodLives()
   {
-    super(random(50, width-10), random(50, height-10), 10);
+    super(random(50, width-10), random(50, height-10), 30);
     collour= color(#FCF10A);
     hearth = loadImage("hearth1.png");
   }
 
   void applyTo(Snake snake)
   {
-    snake.life ++;
+    snake.lives ++;
     
   }
+  
+ 
  
   void Render()
   {

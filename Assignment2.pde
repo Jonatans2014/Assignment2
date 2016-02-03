@@ -6,7 +6,7 @@ boolean gameT = true;
 PImage bg;
 int ScoreB;
 boolean ScoreC = true;
-
+boolean  reset =  false;
 SnakeObj levels = null;
 SnakeObj Snakeadd;
 void setup ()
@@ -16,11 +16,9 @@ void setup ()
   background(255);
   Snakeadd =  new Snake();
   SObj.add(Snakeadd);
-  
+
   bg = loadImage("snakeB1.jpg");
 }
-
-
 
 void GameLevel()
 {
@@ -30,42 +28,56 @@ void GameLevel()
   if (check.score == 0 &&  ScoreC  == true)
   {
     ScoreB = 0;
-  } else if (check.score >= 10 && ScoreC == false)
+  } else if (check.score == 100 && ScoreC == false)
   {
 
     ScoreB = 1;
+  } else if (check.score == 300 && ScoreC == false)
+  {
+
+    ScoreB = 2;
+    println(ScoreB );
   }
 }
 
 void draw()
 {
-  background(255);
 
+  background(255);
+  println(mouseX, mouseY);
   //calling method to change levels
+
   GameLevel();
+
   switch (ScoreB)
   {
   case 0:
+
     SObj.remove(levels);
     levels = new Level1();
     SObj.add(levels);
     ScoreC = false;
-
     break;
   case 1:
 
     SObj.remove(levels);
-
     frameRate(25);
     levels = new Level2();
     SObj.add(levels);
-
     ScoreC = true;
-
     break;
+
+  case 2:
+    {
+      SObj.remove(levels);
+      frameRate(25);
+      levels = new Level3();
+      SObj.add(levels);
+      println("hey im here");
+      ScoreC = true;
+      break;
+    }
   }
-
-
 
   // calling method
   Gameover game = new Gameover();
@@ -118,6 +130,12 @@ void checkSnakeColli()
     SnakeObj sbj = SObj.get(i);
     if (sbj instanceof Snake)
     {
+
+      //  conditio to check if user has life if not it is game over
+      if (sbj.lives <1)
+      {
+        gameT =false;
+      }
       // check collision with the levels structures
       for (int l = SObj.size () -1; l >= 0; l--)
       {
@@ -129,14 +147,23 @@ void checkSnakeColli()
           {
             if (sbj.direction.get(0).dist(levelCheck.levelsquares.get(c)) < sbj.snakeWidth)
             {
-              gameT = false;
+
+              reset =true;
+
+
+              if (levelCheck instanceof Level1 ) {
+                ((Level1) levelCheck).DecreaseLife((Snake)sbj);
+              }
+
+              if (levelCheck instanceof Level2 ) {
+                ((Level2) levelCheck).DecreaseLife((Snake)sbj);
+              }
             }
           }
         }
       }
     }
   }
-
 
 
 
@@ -159,9 +186,16 @@ void checkSnakeColli()
     }
   }
 }
+
+
+
+
 // implementing collisions
 void checkSPowerUpcolli()
 {
+
+  boolean addApple  = false;
+
   for (int i= SObj.size () -1; i >= 0; i--)
   {
     SnakeObj sobj = SObj.get(i);
@@ -170,15 +204,20 @@ void checkSPowerUpcolli()
       for (int j = SObj.size () -1; j >=0; j--)
       {
 
+
         SnakeObj other =  SObj.get(j);
-        if (other instanceof FoodLives || other instanceof FoodGrowth )
+        if (other instanceof FoodLives || other instanceof FoodGrowth)
         {
-          if (sobj.direction.get(0).dist(other.direction.get(0)) < sobj.snakeWidth+sobj.snakeWidth)
+          if (sobj.direction.get(0).dist(other.direction.get(0)) < sobj.snakeWidth +sobj.snakeWidth)
           {
+
             if (other instanceof FoodLives)
             {
               ((FoodLives) other).applyTo((Snake)sobj);
               SObj.remove(other);
+              addApple = true
+
+                return addApple;
             } else if (other instanceof FoodGrowth)
             {
               ((FoodGrowth) other).applyTo((Snake)sobj);
