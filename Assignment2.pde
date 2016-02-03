@@ -12,12 +12,14 @@ SnakeObj Snakeadd;
 void setup ()
 {
   size(1000, 800);
-  frameRate(25);
+  frameRate(18);
   background(255);
   Snakeadd =  new Snake();
   SObj.add(Snakeadd);
-
+  Snakeadd =  new FoodGrowth();
+  SObj.add(Snakeadd);
   bg = loadImage("snakeB1.jpg");
+  
 }
 
 void GameLevel()
@@ -36,15 +38,17 @@ void GameLevel()
   {
 
     ScoreB = 2;
-    println(ScoreB );
   }
 }
 
 void draw()
 {
 
+  boolean addApple; 
+
+
   background(255);
-  println(mouseX, mouseY);
+  // println(mouseX, mouseY);
   //calling method to change levels
 
   GameLevel();
@@ -61,7 +65,7 @@ void draw()
   case 1:
 
     SObj.remove(levels);
-    frameRate(25);
+    frameRate(30);
     levels = new Level2();
     SObj.add(levels);
     ScoreC = true;
@@ -70,10 +74,10 @@ void draw()
   case 2:
     {
       SObj.remove(levels);
-      frameRate(25);
+      frameRate(50);
       levels = new Level3();
       SObj.add(levels);
-      println("hey im here");
+      //println("hey im here");
       ScoreC = true;
       break;
     }
@@ -92,8 +96,15 @@ void draw()
   // instance of baseclass
   SnakeObj SnakeFoods = null;
 
+
+  //calling methods  
+  checkSnakeColli();
+  addApple = checkSPowerUpcolli();
+
+  //println(addApple);
+
   // creating powerups lives and foodGrowth
-  if (frameCount % 60 == 0)
+  if ( addApple == true)
   {
     SnakeFoods =  new FoodGrowth();
     SObj.add(SnakeFoods);
@@ -104,9 +115,6 @@ void draw()
     SnakeFoods =  new FoodLives(); 
     SObj.add(SnakeFoods);
   }
-
-  checkSPowerUpcolli();
-  checkSnakeColli();
 }
 
 
@@ -191,7 +199,7 @@ void checkSnakeColli()
 
 
 // implementing collisions
-void checkSPowerUpcolli()
+boolean checkSPowerUpcolli()
 {
 
   boolean addApple  = false;
@@ -211,22 +219,23 @@ void checkSPowerUpcolli()
           if (sobj.direction.get(0).dist(other.direction.get(0)) < sobj.snakeWidth +sobj.snakeWidth)
           {
 
+
             if (other instanceof FoodLives)
             {
               ((FoodLives) other).applyTo((Snake)sobj);
               SObj.remove(other);
-              addApple = true
-
-                return addApple;
             } else if (other instanceof FoodGrowth)
             {
               ((FoodGrowth) other).applyTo((Snake)sobj);
               SObj.remove(other);
+              addApple = !addApple;
+              println(addApple);
             }
           }
         }
       }
     }
   }
+  return addApple;
 }
 
