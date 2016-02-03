@@ -1,4 +1,4 @@
-class Level2 extends SnakeObj implements Ressurect
+class Level2 extends SnakeObj 
 {
   // constructor
   Level2()
@@ -36,9 +36,5 @@ class Level2 extends SnakeObj implements Ressurect
       rect( levelsquares.get(i).x, levelsquares.get(i).y, snakeWidth, snakeWidth);
     }
   }
-  void DecreaseLife(Snake snake)
-  {
-    snake.lives --;
-  }
-}
 
+}

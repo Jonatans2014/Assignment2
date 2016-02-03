@@ -13,7 +13,8 @@ abstract class SnakeObj
   float snakeWidth;
   color collour;
   String move;
-  
+  int framerateLV2;
+
 
   SnakeObj()
   {
@@ -34,8 +35,8 @@ abstract class SnakeObj
     this.snakeWidth = snakeWidth;
     score = 0;
     move = null;
-    
-     lives = 3;
+    lives = 3;
+    framerateLV2 = 35;
   }
 
 
@@ -43,9 +44,8 @@ abstract class SnakeObj
   void Update()
   {
   }
-  
+
   void Reset()
   {
   }
 }
-
