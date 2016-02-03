@@ -8,8 +8,10 @@ int ScoreB;
 boolean ScoreC = true;
 boolean  reset =  false;
 boolean speedDecrease = false;
+boolean stopSpeed = false;
 int speed1 = 35;
 int speed2 = 40;
+int SpeedDecrement = 0;
 SnakeObj levels = null;
 SnakeObj Snakeadd;
 void setup ()
@@ -48,12 +50,14 @@ void draw()
 {
 
   boolean addApple; 
+
+
   background(255);
   // println(mouseX, mouseY);
   //calling method to change levels
 
   GameLevel();
-  
+
 
   switch (ScoreB)
   {
@@ -100,7 +104,7 @@ void draw()
     game.Display();
   }
   // instance of baseclass
-  SnakeObj SnakeFoods = null;
+
 
 
   //calling methods 
@@ -108,35 +112,43 @@ void draw()
   checkSnakeColli();
   addApple = checkSPowerUpcolli();
 
-  //println(addApple);
 
   // creating powerups lives and foodGrowth
   if ( addApple == true)
   {
 
-    SnakeFoods =  new FoodGrowth();
-    SObj.add(SnakeFoods);
+    Snakeadd =  new FoodGrowth();
+    SObj.add(Snakeadd);
   }
 
-  if (frameCount % 60 == 0)
+
+  if (frameCount % 20 == 0 && stopSpeed == false)
   {
-    SnakeFoods =  new FoodLives(); 
-    SObj.add(SnakeFoods);
+    Snakeadd =  new FoodLives();
+    SObj.add(Snakeadd);
+    SpeedDecrement ++;
+   
+    
+    // when speed reaches 3 then it stop adding speed power up
+    if ( SpeedDecrement ==3)
+    {
+
+      stopSpeed = true;
+    }
   }
 }
 
 
 void changeFrameRate()
 {
-  
+
   if (speedDecrease == true && ScoreB == 1)
   {
     speed1 -= 10;
     frameRate(speed1);
     println(speed1);
     speedDecrease = !speedDecrease ;
-  }
-  else if( speedDecrease == true && ScoreB == 2)
+  } else if ( speedDecrease == true && ScoreB == 2)
   {
     speed2 -= 5;
     frameRate(speed2);
@@ -235,9 +247,10 @@ boolean checkSPowerUpcolli()
 
             if (other instanceof FoodLives)
             {
-              
+
               //change i
               speedDecrease = true;
+
               ((FoodLives) other).applyTo((Snake)sobj);
 
               SObj.remove(other);
@@ -247,7 +260,6 @@ boolean checkSPowerUpcolli()
 
               SObj.remove(other);
               addApple = !addApple;
-             
             }
           }
         }
