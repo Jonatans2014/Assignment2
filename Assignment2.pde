@@ -122,7 +122,7 @@ void draw()
   }
 
 
-  if (frameCount % 20 == 0 && stopSpeed == false)
+  if (frameCount % 200 == 0 && stopSpeed == false)
   {
     Snakeadd =  new FoodLives();
     SObj.add(Snakeadd);

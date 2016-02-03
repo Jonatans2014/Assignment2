@@ -5,7 +5,7 @@ class FoodGrowth extends SnakeObj
   PImage apple;
   FoodGrowth()
   {
-    super(random(10, width-10), random(10, height-10), 10);
+    super(random(10, width * 0.98), random(10,height *0.98 ), 10);
     collour= color(#FC0509);
     apple = loadImage("apple1.png");
   }
