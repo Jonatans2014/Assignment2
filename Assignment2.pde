@@ -8,10 +8,14 @@ int ScoreB;
 boolean ScoreC = true;
 boolean  reset =  false;
 boolean speedDecrease = false;
+boolean speedIncrease = false;
 boolean stopSpeed = false;
+boolean stopIncreaseSpeed = false;
 int speed1 = 35;
 int speed2 = 40;
 int SpeedDecrement = 0;
+int SpeedIncrement  = 0;
+
 SnakeObj levels = null;
 SnakeObj Snakeadd;
 void setup ()
@@ -34,12 +38,14 @@ void GameLevel()
   if (check.score == 0 &&  ScoreC  == true)
   {
     ScoreB = 0;
-  } else if (check.score == 20 && ScoreC == false)
+  }
+  if (check.score == 100 && ScoreC == false)
   {
 
 
     ScoreB = 1;
-  } else if (check.score == 300 && ScoreC == false)
+  } 
+  if (check.score == 300 && ScoreC == false)
   {
 
     ScoreB = 2;
@@ -85,7 +91,7 @@ void draw()
       frameRate(Snakeadd.framerateLV2);
       levels = new Level3();
       SObj.add(levels);
-      //println("hey im here");
+      println("hey im here");
       ScoreC = true;
       break;
     }
@@ -136,6 +142,22 @@ void draw()
       stopSpeed = true;
     }
   }
+
+
+  if (frameCount % 20 == 0 && stopIncreaseSpeed  == false)
+  {
+    Snakeadd =  new SIncrease();
+    SObj.add(Snakeadd);
+    SpeedIncrement ++;
+
+    println("SpeedIn", SpeedIncrement);
+
+    // when speed reaches 3 then it stop adding speed power up
+    if ( SpeedIncrement == 3)
+    {
+      stopIncreaseSpeed  = true;
+    }
+  }
 }
 
 
@@ -146,14 +168,31 @@ void changeFrameRate()
   {
     speed1 -= 10;
     frameRate(speed1);
-    println(speed1);
+
     speedDecrease = !speedDecrease ;
   } else if ( speedDecrease == true && ScoreB == 2)
   {
     speed2 -= 5;
     frameRate(speed2);
-    println(speed2);
+
     speedDecrease = !speedDecrease ;
+  }
+
+
+  // code to increase the framerate
+
+  if (speedIncrease == true && ScoreB == 1)
+  {
+    speed1 += 10;
+    frameRate(speed1);
+
+    speedIncrease = !speedIncrease ;
+  } else if ( speedIncrease == true && ScoreB == 2)
+  {
+    speed2 += 15;
+    frameRate(speed2);
+    println(speed2);
+    speedIncrease = !speedIncrease ;
   }
 }
 
@@ -239,7 +278,7 @@ boolean checkSPowerUpcolli()
 
 
         SnakeObj other =  SObj.get(j);
-        if (other instanceof SDecrease || other instanceof FoodGrowth)
+        if (other instanceof SDecrease || other instanceof SIncrease|| other instanceof FoodGrowth )
         {
           if (sobj.direction.get(0).dist(other.direction.get(0)) < sobj.snakeWidth +sobj.snakeWidth)
           {
@@ -248,9 +287,14 @@ boolean checkSPowerUpcolli()
             if (other instanceof SDecrease)
             {
 
+
               //change i
               speedDecrease = true;
 
+              SObj.remove(other);
+            } else if (other instanceof SIncrease)
+            {
+              speedIncrease = true;
               SObj.remove(other);
             } else if (other instanceof FoodGrowth)
             {
@@ -280,7 +324,7 @@ boolean  checkPowerup()
       for (int j = SObj.size () -1; j >=0; j--)
       {
         SnakeObj other =  SObj.get(j);
-        if (other instanceof FoodGrowth || other instanceof SDecrease)
+        if (other instanceof FoodGrowth || other instanceof SDecrease  || other instanceof SIncrease)
         {
           for (int c = 0; c < sobj.levelsquares.size(); c ++)
           {
@@ -296,7 +340,10 @@ boolean  checkPowerup()
               if (other instanceof SDecrease)
               {
                 SObj.remove(other);
-                
+              }
+              if (other instanceof SIncrease)
+              {
+                SObj.remove(other);
               }
             }
           }
@@ -304,6 +351,6 @@ boolean  checkPowerup()
       }
     }
   }
-  println(addApple1);
+
   return addApple1;
 }

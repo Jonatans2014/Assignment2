@@ -1,8 +1,8 @@
-class SDecrease extends SnakeObj 
+class SIncrease extends SnakeObj 
 {
-   PImage antidote;
+  PImage antidote;
   //constructor
-  SDecrease()
+  SIncrease()
   {
     super(random(50, width-10), random(50, height-10), 30);
     collour= color(#FCF10A);
@@ -13,7 +13,6 @@ class SDecrease extends SnakeObj
   {
     fill(collour);
     // display life
-    image(antidote,direction.get(0).x, direction.get(0).y,20, 20);
-    
+    image(antidote, direction.get(0).x, direction.get(0).y, 20, 20);
   }
 }
