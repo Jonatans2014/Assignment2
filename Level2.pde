@@ -35,6 +35,7 @@ class Level2 extends SnakeObj
     {
       rect( levelsquares.get(i).x, levelsquares.get(i).y, snakeWidth, snakeWidth);
     }
+    
   }
 
 }

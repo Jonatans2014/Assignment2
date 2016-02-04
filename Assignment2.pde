@@ -50,7 +50,7 @@ void draw()
 {
 
   boolean addApple; 
-
+  boolean addAppleCheck;
 
   background(255);
   // println(mouseX, mouseY);
@@ -110,15 +110,21 @@ void draw()
   //calling methods 
   changeFrameRate(); 
   checkSnakeColli();
-  addApple = checkSPowerUpcolli();
+  addApple = checkPowerup();
+  addAppleCheck = checkSPowerUpcolli();
+
+ 
 
 
   // creating powerups lives and foodGrowth
-  if ( addApple == true)
+  if ( addApple == true || addAppleCheck == true )
   {
 
     Snakeadd =  new FoodGrowth();
     SObj.add(Snakeadd);
+    addApple = false;
+    addAppleCheck = false;
+    
   }
 
 
@@ -127,8 +133,8 @@ void draw()
     Snakeadd =  new FoodLives();
     SObj.add(Snakeadd);
     SpeedDecrement ++;
-   
-    
+
+
     // when speed reaches 3 then it stop adding speed power up
     if ( SpeedDecrement ==3)
     {
@@ -266,5 +272,42 @@ boolean checkSPowerUpcolli()
       }
     }
   }
+
+
   return addApple;
+}
+
+boolean  checkPowerup()
+{
+  boolean addApple1  = false;
+  for (int i= SObj.size () -1; i >= 0; i--)
+  {
+    SnakeObj sobj = SObj.get(i);
+    if ( sobj instanceof Level1 ||sobj instanceof Level2 || sobj instanceof Level3)
+    {
+      for (int j = SObj.size () -1; j >=0; j--)
+      {
+        SnakeObj other =  SObj.get(j);
+        if (other instanceof FoodGrowth)
+        {
+          
+          for(int c = 0; c < sobj.levelsquares.size(); c ++)
+          {
+            
+            
+          if (other.direction.get(0).dist(sobj.levelsquares.get(c)) < other.snakeWidth + other.snakeWidth)
+          {
+            
+               
+              SObj.remove(other);
+              addApple1 = true;
+            
+          }
+        }
+        }
+      }
+    }
+  }
+  println(addApple1);
+  return addApple1;
 }
