@@ -68,6 +68,7 @@ void draw()
     SObj.add(levels);
     ScoreC = false;
     break;
+
   case 1:
 
     SObj.remove(levels);
@@ -80,10 +81,8 @@ void draw()
   case 2:
     {
 
-
       SObj.remove(levels);
       frameRate(Snakeadd.framerateLV2);
-
       levels = new Level3();
       SObj.add(levels);
       //println("hey im here");
@@ -105,16 +104,11 @@ void draw()
   }
   // instance of baseclass
 
-
-
   //calling methods 
   changeFrameRate(); 
   checkSnakeColli();
   addApple = checkPowerup();
   addAppleCheck = checkSPowerUpcolli();
-
- 
-
 
   // creating powerups lives and foodGrowth
   if ( addApple == true || addAppleCheck == true )
@@ -124,21 +118,21 @@ void draw()
     SObj.add(Snakeadd);
     addApple = false;
     addAppleCheck = false;
-    
   }
+
+
 
 
   if (frameCount % 200 == 0 && stopSpeed == false)
   {
-    Snakeadd =  new FoodLives();
+    Snakeadd =  new SDecrease();
     SObj.add(Snakeadd);
     SpeedDecrement ++;
 
 
     // when speed reaches 3 then it stop adding speed power up
-    if ( SpeedDecrement ==3)
+    if ( SpeedDecrement == 3)
     {
-
       stopSpeed = true;
     }
   }
@@ -245,19 +239,17 @@ boolean checkSPowerUpcolli()
 
 
         SnakeObj other =  SObj.get(j);
-        if (other instanceof FoodLives || other instanceof FoodGrowth)
+        if (other instanceof SDecrease || other instanceof FoodGrowth)
         {
           if (sobj.direction.get(0).dist(other.direction.get(0)) < sobj.snakeWidth +sobj.snakeWidth)
           {
 
 
-            if (other instanceof FoodLives)
+            if (other instanceof SDecrease)
             {
 
               //change i
               speedDecrease = true;
-
-              ((FoodLives) other).applyTo((Snake)sobj);
 
               SObj.remove(other);
             } else if (other instanceof FoodGrowth)
@@ -288,22 +280,26 @@ boolean  checkPowerup()
       for (int j = SObj.size () -1; j >=0; j--)
       {
         SnakeObj other =  SObj.get(j);
-        if (other instanceof FoodGrowth)
+        if (other instanceof FoodGrowth || other instanceof SDecrease)
         {
-          
-          for(int c = 0; c < sobj.levelsquares.size(); c ++)
+          for (int c = 0; c < sobj.levelsquares.size(); c ++)
           {
-            
-            
-          if (other.direction.get(0).dist(sobj.levelsquares.get(c)) < other.snakeWidth + other.snakeWidth)
-          {
-            
-               
-              SObj.remove(other);
-              addApple1 = true;
-            
+            if (other.direction.get(0).dist(sobj.levelsquares.get(c)) < other.snakeWidth + other.snakeWidth)
+            {
+
+              if (other instanceof FoodGrowth)
+              {
+                SObj.remove(other);
+                addApple1 = true;
+              }
+
+              if (other instanceof SDecrease)
+              {
+                SObj.remove(other);
+                
+              }
+            }
           }
-        }
         }
       }
     }
