@@ -16,7 +16,7 @@ class Snake  extends SnakeObj
   {
     super(width*0.9f, height*0.5f, 10);
     textWH = width * 0.040f;
-    score = 280;
+    score = 500;
     SnakeS = 1;
     lives = 3;
     framerateLV2 = 35;
@@ -42,7 +42,7 @@ class Snake  extends SnakeObj
     direction.add(new PVector(-snakeWidth, -snakeWidth));
     // display life
     fill(#FC0509);
-    text("Life:"+lives, textWH, height*0.1);
+    
     fill(0);
 
     for (int i = 0; i < SnakeSize; i++)
@@ -51,7 +51,7 @@ class Snake  extends SnakeObj
       rect(direction.get(i).x, direction.get(i).y, snakeWidth, snakeWidth);
     }  
     // add score
-    text("Score " + score, width*0.8, height*0.1);
+    text("Score: " + score, width*0.88, height*0.1);
   }
 
   // method to move the snake
@@ -107,24 +107,25 @@ class Snake  extends SnakeObj
 
 
     // code to come out from anothe border
-    if (direction.get(0).x < 0)
+    if (direction.get(0).x < snakeWidth)
     {
-      direction.get(0).x = width;
+      
+      direction.get(0).x = width -snakeWidth;
     }
 
-    if (direction.get(0).x > width)
+    if (direction.get(0).x > width -snakeWidth)
     {
-      direction.get(0).x = 0;
+      direction.get(0).x = snakeWidth;
     }
 
-    if (direction.get(0).y < 0)
+    if (direction.get(0).y < snakeWidth)
     {
-      direction.get(0).y = height;
+      direction.get(0).y = height-snakeWidth;
     }
 
-    if (direction.get(0).y > height)
+    if (direction.get(0).y > height -snakeWidth)
     {
-      direction.get(0).y = 0;
+      direction.get(0).y = snakeWidth;
     }
     dir.x = direction.get(0).x;
     dir.y = direction.get(0).y;

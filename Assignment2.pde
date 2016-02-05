@@ -38,14 +38,12 @@ void GameLevel()
   if (check.score == 0 &&  ScoreC  == true)
   {
     ScoreB = 0;
-  }
-  if (check.score == 100 && ScoreC == false)
+  } else if (check.score >= 100 &&  check.score < 290 &&  ScoreC == false)
   {
 
 
     ScoreB = 1;
-  } 
-  if (check.score == 300 && ScoreC == false)
+  } else if (check.score >= 300 && ScoreC == false)
   {
 
     ScoreB = 2;
@@ -81,6 +79,11 @@ void draw()
     frameRate(speed1);
     levels = new Level2();
     SObj.add(levels);
+
+
+    textSize(20);
+    fill(0);
+    text("Speed : " +speed1, width*0.02, height*0.1);
     ScoreC = true;
     break;
 
@@ -88,10 +91,13 @@ void draw()
     {
 
       SObj.remove(levels);
-      frameRate(Snakeadd.framerateLV2);
+      frameRate(speed2);
       levels = new Level3();
       SObj.add(levels);
-      println("hey im here");
+
+      textSize(20);
+      fill(0);
+      text("Speed : " +speed2, width*0.02, height*0.1);
       ScoreC = true;
       break;
     }
@@ -111,7 +117,8 @@ void draw()
   // instance of baseclass
 
   //calling methods 
-  changeFrameRate(); 
+  changeFrameRate();
+
   checkSnakeColli();
   addApple = checkPowerup();
   addAppleCheck = checkSPowerUpcolli();
@@ -127,9 +134,10 @@ void draw()
   }
 
 
+  SnakeObj getscore = SObj.get(0);
 
-
-  if (frameCount % 200 == 0 && stopSpeed == false)
+  //println(getscore.score);
+  if (frameCount % 200 == 0 && stopSpeed == false && getscore.score >100)
   {
     Snakeadd =  new SDecrease();
     SObj.add(Snakeadd);
@@ -144,13 +152,13 @@ void draw()
   }
 
 
-  if (frameCount % 20 == 0 && stopIncreaseSpeed  == false)
+  if (frameCount % 20 == 0 && stopIncreaseSpeed  == false &&  getscore.score >100 )
   {
     Snakeadd =  new SIncrease();
     SObj.add(Snakeadd);
     SpeedIncrement ++;
 
-    println("SpeedIn", SpeedIncrement);
+    //println("SpeedIn", SpeedIncrement);
 
     // when speed reaches 3 then it stop adding speed power up
     if ( SpeedIncrement == 3)
@@ -167,12 +175,16 @@ void changeFrameRate()
   if (speedDecrease == true && ScoreB == 1)
   {
     speed1 -= 10;
+
     frameRate(speed1);
 
     speedDecrease = !speedDecrease ;
   } else if ( speedDecrease == true && ScoreB == 2)
   {
+    println("drecreased", speed2);
     speed2 -= 5;
+
+
     frameRate(speed2);
 
     speedDecrease = !speedDecrease ;
@@ -183,15 +195,18 @@ void changeFrameRate()
 
   if (speedIncrease == true && ScoreB == 1)
   {
+
+
     speed1 += 10;
     frameRate(speed1);
 
     speedIncrease = !speedIncrease ;
   } else if ( speedIncrease == true && ScoreB == 2)
   {
+    println("inrecreased", speed2);
     speed2 += 15;
     frameRate(speed2);
-    println(speed2);
+
     speedIncrease = !speedIncrease ;
   }
 }
@@ -289,12 +304,17 @@ boolean checkSPowerUpcolli()
 
 
               //change i
+
               speedDecrease = true;
+              println("works decreae", speedDecrease );
+
 
               SObj.remove(other);
             } else if (other instanceof SIncrease)
             {
+
               speedIncrease = true;
+              println("works  speed incrase", speedIncrease );
               SObj.remove(other);
             } else if (other instanceof FoodGrowth)
             {
