@@ -1,12 +1,23 @@
 class Level3  extends SnakeObj 
 {
+  
+  
+ 
    Level3()
   {
     super(width, height*0.6, 10);    
     collour =  color(#A52A2A);
     move = null;
+    audio = minim.loadFile("level1A.mp3");
   }
   
+  
+  
+  void Sound()
+  {
+    audio.rewind();
+    audio.play();
+  }
   
   void Render()
   {

@@ -14,6 +14,8 @@ abstract class SnakeObj
   color collour;
   String move;
   int framerateLV2;
+  
+  AudioPlayer audio;
 
 
   SnakeObj()
@@ -44,7 +46,7 @@ abstract class SnakeObj
   void Update()
   {
   }
-
+  abstract void Sound();
   void Reset()
   {
   }

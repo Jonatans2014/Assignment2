@@ -1,3 +1,6 @@
+import ddf.minim.*;
+
+Minim minim;
 // arraylist with the obj type
 ArrayList<SnakeObj> SObj = new ArrayList<SnakeObj>();
 
@@ -21,7 +24,9 @@ SnakeObj Snakeadd;
 void setup ()
 {
   size(1000, 800);
-  frameRate(18);
+  minim = new Minim(this);
+
+  frameRate(20);
   background(255);
   Snakeadd =  new Snake();
   SObj.add(Snakeadd);
@@ -71,6 +76,7 @@ void draw()
     levels = new Level1();
     SObj.add(levels);
     ScoreC = false;
+    text("Speed : " +20, width*0.02, height*0.1);
     break;
 
   case 1:

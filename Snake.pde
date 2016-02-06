@@ -9,28 +9,36 @@ class Snake  extends SnakeObj
   float x;
   float y;
   PVector dir;
+ 
 
-  
   // constructor
   Snake()
   {
     super(width*0.9f, height*0.5f, 10);
     textWH = width * 0.040f;
-    score = 500;
+    score = 0;
     SnakeS = 1;
     lives = 3;
     framerateLV2 = 35;
     x = width/3;
     y = height/3;
     dir = new PVector(0, 0);
+    audio = minim.loadFile("SnakeBite.wav");
   }
   // method to draw the snake
 
 
 
+
+  void Sound()
+  {
+    audio.rewind();
+    audio.play();
+  }
+
   void Reset()
   {
-    
+
     direction.get(0).x = x;
     direction.get(0).y = y;
     rect(direction.get(0).x, direction.get(0).y, snakeWidth, snakeWidth);
@@ -42,7 +50,7 @@ class Snake  extends SnakeObj
     direction.add(new PVector(-snakeWidth, -snakeWidth));
     // display life
     fill(#FC0509);
-    
+
     fill(0);
 
     for (int i = 0; i < SnakeSize; i++)
@@ -75,7 +83,7 @@ class Snake  extends SnakeObj
 
 
     //switch case
-   
+
 
     for (int j = SnakeSize -1; j > 0; j-- ) {
 
@@ -109,7 +117,7 @@ class Snake  extends SnakeObj
     // code to come out from anothe border
     if (direction.get(0).x < snakeWidth)
     {
-      
+
       direction.get(0).x = width -snakeWidth;
     }
 

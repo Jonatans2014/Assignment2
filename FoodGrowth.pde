@@ -1,14 +1,25 @@
 class FoodGrowth extends SnakeObj 
 {
   //fields
+  
   color collour;
   PImage apple;
+  
+  
   FoodGrowth()
   {
     super(random(10, width * 0.98), random(10,height *0.98 ), 10);
     collour= color(#FC0509);
     apple = loadImage("apple1.png");
+    audio = minim.loadFile("level1A.mp3");
   }
+  
+  void Sound()
+  {
+    audio.rewind();
+    audio.play();
+  }
+
 
   void applyTo(Snake snake)
   {
