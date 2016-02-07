@@ -14,11 +14,10 @@ class Snake  extends SnakeObj
   // constructor
   Snake()
   {
-    super(width*0.9f, height*0.5f, 10);
+    super(width*0.8, height*0.4,width/2,height/2, 10);  
     textWH = width * 0.040f;
-    score = 80;
+    score = 300;
     SnakeS = 1;
-    lives = 3;
     framerateLV2 = 35;
     x = width/3;
     y = height/3;

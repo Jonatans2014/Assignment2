@@ -22,11 +22,11 @@ abstract class SnakeObj
   SnakeObj()
   {
     //Constructor chaining
-    this(width * 0.5f, height  * 0.5f, 10);
+    this(width * 0.9f, height  * 0.5f,width/2,height/2, 10);
   }
 
   //constructor 
-  SnakeObj(float x, float y, float snakeWidth)
+  SnakeObj(float x, float y,float a,float b, float snakeWidth)
   {
     SnakeSize= 1;
     backForth = new PVector(0, 10);
@@ -34,7 +34,7 @@ abstract class SnakeObj
     direction = new  ArrayList<PVector>();
     levelsquares = new  ArrayList<PVector>();
     direction.add(new PVector(x, y));
-    levelsquares.add(new PVector(x, y));
+    levelsquares.add(new PVector(a, b));
     this.snakeWidth = snakeWidth;
     score = 0;
     move = null;

@@ -5,10 +5,10 @@ class Level3  extends SnakeObj
  
    Level3()
   {
-    super(width, height*0.6, 10);    
+    super(width*0.5, height*0.1,width/2,height/2, 10);  
     collour =  color(#A52A2A);
     move = null;
-    audio = minim.loadFile("level1A.mp3");
+    audio = minim.loadFile("level3.mp3");
     
   }
   
@@ -33,6 +33,7 @@ class Level3  extends SnakeObj
 
     for (int i = 0; i <=200; i++)
     {
+     
       rect( levelsquares.get(i).x, levelsquares.get(i).y, snakeWidth, snakeWidth);
     }
   }

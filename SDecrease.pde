@@ -7,7 +7,7 @@ class SDecrease extends SnakeObj
   //constructor
   SDecrease()
   {
-    super(random(50, width-10), random(50, height-10), 30);
+    super(random(50, width-10), random(50, height-10),width/2,width/2, 30);
     collour= color(#FCF10A);
     antidote = loadImage("antidote1.png");
     audio = minim.loadFile("decrease.mp3");

@@ -8,7 +8,7 @@ class FoodGrowth extends SnakeObj
 
   FoodGrowth()
   {
-    super(random(10, width * 0.98), random(10, height *0.98 ), 10);
+    super(random(10, width * 0.98), random(10, height *0.98 ),width/2,width/2, 10);
     collour= color(#FC0509);
     apple = loadImage("apple1.png");
     audio = minim.loadFile("apple.wav");

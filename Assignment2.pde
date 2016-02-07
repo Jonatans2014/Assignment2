@@ -83,12 +83,14 @@ void GameLevel()
   if (check.score == 0 &&  ScoreC  == true)
   {
     ScoreB = 0;
+   
   } else if (check.score >= 100 &&  check.score < 290 &&  ScoreC == false)
   {
 
 
     ScoreB = 1;
-  } else if (check.score >= 300 && ScoreC == false)
+    
+  } else if (check.score >= 300 && ScoreC == true)
   {
 
     ScoreB = 2;
@@ -101,14 +103,14 @@ void draw()
 
   boolean addApple; 
   boolean addAppleCheck;
-
+  println(ScoreC);
   background(255);
   // println(mouseX, mouseY);
   //calling method to change levels
 
   GameLevel();
 
-
+  
   switch (ScoreB)
   {
   case 0:
@@ -118,9 +120,9 @@ void draw()
     SObj.remove(levels);
     levels = new Level1();
     SObj.add(levels);
-    ScoreC = false;
+    ScoreC = !ScoreC;
     levels.Sound();
-    text("Speed : " +20, width*0.02, height*0.1);
+  
 
     ScoreB = 5;
     break;
@@ -132,36 +134,53 @@ void draw()
     frameRate(speed1);
     levels = new Level2();
     SObj.add(levels);
-    println(SObj.size());
+    
     levels.Sound();
     textSize(20);
     fill(0);
-    text("Speed : " +speed1, width*0.02, height*0.1);
-    ScoreC = true;
+    
+    ScoreC = !ScoreC;
     ScoreB = 5;
     break;
 
   case 2:
     {
-      levels.audio.pause();
+    
+       //levels.audio.pause();
+
       SObj.remove(levels);
       frameRate(speed2);
       levels = new Level3();
       SObj.add(levels);
-      SObj.get(3).Sound();
+    
       
       levels.Sound();
       textSize(20);
       
       fill(0);
       text("Speed : " +speed2, width*0.02, height*0.1);
-      ScoreC = true;
+      ScoreC = !ScoreC ;
       ScoreB = 5;
       break;
     }
   }
 
-
+  // display speed
+  
+  if(levels instanceof Level1)
+  {
+      text("Speed : " +20, width*0.02, height*0.1);
+  }
+  
+  if(levels instanceof Level2)
+  {
+      text("Speed : " +speed1, width*0.02, height*0.1);
+  }
+  
+  if(levels instanceof Level3)
+  {
+      text("Speed : " +speed2, width*0.02, height*0.1);
+  }
   // calling method
   Gameover game = new Gameover();
   //stop or starting the game
@@ -194,8 +213,9 @@ void draw()
 
   SnakeObj getscore = SObj.get(0);
 
+
   //println(getscore.score);
-  if (frameCount % 200 == 0 && stopSpeed == false && getscore.score >100)
+  if (frameCount % 300 == 0 && stopSpeed == false && getscore.score >100)
   {
     Snakeadd =  new SDecrease();
     SObj.add(Snakeadd);
@@ -210,7 +230,7 @@ void draw()
   }
 
 
-  if (frameCount % 20 == 0 && stopIncreaseSpeed  == false &&  getscore.score >100 )
+  if (frameCount % 200 == 0 && stopIncreaseSpeed  == false &&  getscore.score >100 )
   {
     Snakeadd =  new SIncrease();
     SObj.add(Snakeadd);
@@ -230,14 +250,14 @@ void draw()
 void changeFrameRate()
 {
 
-  if (speedDecrease == true && ScoreB == 1)
+  if (speedDecrease == true && ScoreC == true)
   {
     speed1 -= 10;
 
     frameRate(speed1);
 
     speedDecrease = !speedDecrease ;
-  } else if ( speedDecrease == true && ScoreB == 2)
+  } else if ( speedDecrease == true && ScoreC == false)
   {
     println("drecreased", speed2);
     speed2 -= 5;
@@ -251,7 +271,7 @@ void changeFrameRate()
 
   // code to increase the framerate
 
-  if (speedIncrease == true && ScoreB == 1)
+  if (speedIncrease == true && ScoreC == true)
   {
 
 
@@ -259,7 +279,7 @@ void changeFrameRate()
     frameRate(speed1);
 
     speedIncrease = !speedIncrease ;
-  } else if ( speedIncrease == true && ScoreB == 2)
+  } else if ( speedIncrease == true && ScoreC == false )
   {
     println("inrecreased", speed2);
     speed2 += 15;
@@ -277,7 +297,7 @@ void GameStart()
   // running methods in the arraylist and passing values from he arraylis to the superclass
   for (int i = SObj.size () -1; i >=0; i--)
   {
-    println(SObj.size());
+    //println(SObj.size());
     SnakeObj sobj = SObj.get(i);
     sobj.Render();
     sobj.Update();
@@ -298,7 +318,7 @@ void GameStart()
         {
 
           SnakeObj levelCheck = SObj.get(l);
-          if (levelCheck instanceof Level1 || levelCheck instanceof  Level2 )
+          if (levelCheck instanceof Level1 || levelCheck instanceof  Level2  || levelCheck instanceof  Level3 )
           {
             for (int c = 0; c < levelCheck.levelsquares.size (); c++ )
             {
@@ -379,6 +399,7 @@ void GameStart()
                 SObj.remove(other);
               } else if (other instanceof FoodGrowth)
               {
+                 other.Sound();
                 ((FoodGrowth) other).applyTo((Snake)sobj);
 
                 SObj.remove(other);
