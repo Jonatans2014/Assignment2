@@ -9,18 +9,14 @@ class Level2 extends SnakeObj
     super(width, height*0.6, 10);    
     collour =  color(#A52A2A);
     move = null;
-    audio = minim.loadFile("level1A.mp3");
+    audio = minim.loadFile("Level2.mp3");
+   
   }
 
 
 
 
-   void Sound()
-  {
-    audio.rewind();
-    audio.play();
-  }
-
+  
 
   void Render()
   {
@@ -48,5 +44,10 @@ class Level2 extends SnakeObj
     {
       rect( levelsquares.get(i).x, levelsquares.get(i).y, snakeWidth, snakeWidth);
     }
+  }
+  void Sound()
+  {
+    audio.rewind();
+    audio.play();
   }
 }

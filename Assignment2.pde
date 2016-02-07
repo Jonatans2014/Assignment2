@@ -7,7 +7,7 @@ ArrayList<SnakeObj> SObj = new ArrayList<SnakeObj>();
 // globa boolean
 boolean gameT = true;
 PImage bg;
-int ScoreB;
+int ScoreB = 0;
 boolean ScoreC = true;
 boolean  reset =  false;
 boolean speedDecrease = false;
@@ -18,9 +18,49 @@ int speed1 = 35;
 int speed2 = 40;
 int SpeedDecrement = 0;
 int SpeedIncrement  = 0;
+AudioPlayer audio;
 
 SnakeObj levels = null;
 SnakeObj Snakeadd;
+
+
+
+/*
+void LoadAudio()
+ {
+ if (ScoreB == 0)
+ {
+ audio = minim.loadFile("level1A.mp3");
+ playAudio();
+ 
+ ScoreB = 5;
+ }
+ 
+ if (ScoreB == 1)
+ {
+ 
+ audio.pause();
+ audio = minim.loadFile("Level2.mp3");
+ playAudio();
+ ScoreB = 5;
+ }
+ }
+ void playAudio()
+ {
+ audio.play();
+ audio.rewind();
+ 
+ 
+ if(ScoreB == 1)
+ {
+ audio2.play();
+ audio2.rewind();
+ }
+ 
+ 
+ }
+ */
+
 void setup ()
 {
   size(1000, 800);
@@ -58,6 +98,7 @@ void GameLevel()
 void draw()
 {
 
+
   boolean addApple; 
   boolean addAppleCheck;
 
@@ -72,39 +113,50 @@ void draw()
   {
   case 0:
 
+
+
     SObj.remove(levels);
     levels = new Level1();
     SObj.add(levels);
     ScoreC = false;
+    levels.Sound();
     text("Speed : " +20, width*0.02, height*0.1);
+
+    ScoreB = 5;
     break;
 
   case 1:
-
+      
+    levels.audio.pause();
     SObj.remove(levels);
     frameRate(speed1);
     levels = new Level2();
     SObj.add(levels);
-
-
+    println(SObj.size());
+    levels.Sound();
     textSize(20);
     fill(0);
     text("Speed : " +speed1, width*0.02, height*0.1);
     ScoreC = true;
+    ScoreB = 5;
     break;
 
   case 2:
     {
-
+      levels.audio.pause();
       SObj.remove(levels);
       frameRate(speed2);
       levels = new Level3();
       SObj.add(levels);
-
+      SObj.get(3).Sound();
+      
+      levels.Sound();
       textSize(20);
+      
       fill(0);
       text("Speed : " +speed2, width*0.02, height*0.1);
       ScoreC = true;
+      ScoreB = 5;
       break;
     }
   }
@@ -124,7 +176,7 @@ void draw()
 
   //calling methods 
   changeFrameRate();
-
+  //LoadAudio();
   checkSnakeColli();
   addApple = checkPowerup();
   addAppleCheck = checkSPowerUpcolli();
@@ -218,165 +270,167 @@ void changeFrameRate()
 }
 
 
+
 // starting game calling the methods from base class
 void GameStart()
 {
   // running methods in the arraylist and passing values from he arraylis to the superclass
   for (int i = SObj.size () -1; i >=0; i--)
   {
+    println(SObj.size());
     SnakeObj sobj = SObj.get(i);
     sobj.Render();
     sobj.Update();
   }
 }
 
-void checkSnakeColli()
-{
-
-  for (int i =  SObj.size ()-1; i >= 0; i--)
+  void checkSnakeColli()
   {
-    SnakeObj sbj = SObj.get(i);
-    if (sbj instanceof Snake)
-    {
 
-      // check collision with the levels structures
-      for (int l = SObj.size () -1; l >= 0; l--)
+    for (int i =  SObj.size ()-1; i >= 0; i--)
+    {
+      SnakeObj sbj = SObj.get(i);
+      if (sbj instanceof Snake)
       {
 
-        SnakeObj levelCheck = SObj.get(l);
-        if (levelCheck instanceof Level1 || levelCheck instanceof  Level2 )
+        // check collision with the levels structures
+        for (int l = SObj.size () -1; l >= 0; l--)
         {
-          for (int c = 0; c < levelCheck.levelsquares.size (); c++ )
+
+          SnakeObj levelCheck = SObj.get(l);
+          if (levelCheck instanceof Level1 || levelCheck instanceof  Level2 )
           {
-            if (sbj.direction.get(0).dist(levelCheck.levelsquares.get(c)) < sbj.snakeWidth)
+            for (int c = 0; c < levelCheck.levelsquares.size (); c++ )
             {
-              gameT = false;
-            }
-          }
-        }
-      }
-    }
-  }
-
-
-
-
-  /// other collision
-  for (int i =  SObj.size ()-1; i >= 0; i--)
-  {
-    SnakeObj sbj = SObj.get(i);
-
-    if (sbj instanceof Snake)
-    {
-      for (int j = 1; j < sbj.SnakeSize; j ++)
-      {
-        // check collision with own snake
-        if (sbj.direction.get(0).dist(sbj.direction.get(j)) < sbj.snakeWidth-2)
-        {         
-          gameT = false;
-        }
-      }
-    }
-  }
-}
-
-
-
-
-// implementing collisions
-boolean checkSPowerUpcolli()
-{
-
-  boolean addApple  = false;
-
-  for (int i= SObj.size () -1; i >= 0; i--)
-  {
-    SnakeObj sobj = SObj.get(i);
-    if (sobj instanceof Snake)
-    {
-      for (int j = SObj.size () -1; j >=0; j--)
-      {
-
-
-        SnakeObj other =  SObj.get(j);
-        if (other instanceof SDecrease || other instanceof SIncrease|| other instanceof FoodGrowth )
-        {
-          if (sobj.direction.get(0).dist(other.direction.get(0)) < sobj.snakeWidth +sobj.snakeWidth)
-          {
-
-
-            if (other instanceof SDecrease)
-            {
-
-
-              //change i
-
-              speedDecrease = true;
-              println("works decreae", speedDecrease );
-
-
-              SObj.remove(other);
-            } else if (other instanceof SIncrease)
-            {
-
-              speedIncrease = true;
-              println("works  speed incrase", speedIncrease );
-              SObj.remove(other);
-            } else if (other instanceof FoodGrowth)
-            {
-              ((FoodGrowth) other).applyTo((Snake)sobj);
-
-              SObj.remove(other);
-              addApple = !addApple;
-            }
-          }
-        }
-      }
-    }
-  }
-
-
-  return addApple;
-}
-
-boolean  checkPowerup()
-{
-  boolean addApple1  = false;
-  for (int i= SObj.size () -1; i >= 0; i--)
-  {
-    SnakeObj sobj = SObj.get(i);
-    if ( sobj instanceof Level1 ||sobj instanceof Level2 || sobj instanceof Level3)
-    {
-      for (int j = SObj.size () -1; j >=0; j--)
-      {
-        SnakeObj other =  SObj.get(j);
-        if (other instanceof FoodGrowth || other instanceof SDecrease  || other instanceof SIncrease)
-        {
-          for (int c = 0; c < sobj.levelsquares.size(); c ++)
-          {
-            if (other.direction.get(0).dist(sobj.levelsquares.get(c)) < other.snakeWidth + other.snakeWidth)
-            {
-
-              if (other instanceof FoodGrowth)
+              if (sbj.direction.get(0).dist(levelCheck.levelsquares.get(c)) < sbj.snakeWidth)
               {
-                SObj.remove(other);
-                addApple1 = true;
+                gameT = false;
               }
+            }
+          }
+        }
+      }
+    }
+
+
+
+
+    /// other collision
+    for (int i =  SObj.size ()-1; i >= 0; i--)
+    {
+      SnakeObj sbj = SObj.get(i);
+
+      if (sbj instanceof Snake)
+      {
+        for (int j = 1; j < sbj.SnakeSize; j ++)
+        {
+          // check collision with own snake
+          if (sbj.direction.get(0).dist(sbj.direction.get(j)) < sbj.snakeWidth-2)
+          {         
+            gameT = false;
+          }
+        }
+      }
+    }
+  }
+
+
+
+
+  // implementing collisions
+  boolean checkSPowerUpcolli()
+  {
+
+    boolean addApple  = false;
+
+    for (int i= SObj.size () -1; i >= 0; i--)
+    {
+      SnakeObj sobj = SObj.get(i);
+      if (sobj instanceof Snake)
+      {
+        for (int j = SObj.size () -1; j >=0; j--)
+        {
+
+
+          SnakeObj other =  SObj.get(j);
+          if (other instanceof SDecrease || other instanceof SIncrease|| other instanceof FoodGrowth )
+          {
+            if (sobj.direction.get(0).dist(other.direction.get(0)) < sobj.snakeWidth +sobj.snakeWidth)
+            {
+
 
               if (other instanceof SDecrease)
               {
+                    other.Sound();
+
+                //change i
+
+                speedDecrease = true;
+                println("works decreae", speedDecrease );
+
+
                 SObj.remove(other);
-              }
-              if (other instanceof SIncrease)
+              } else if (other instanceof SIncrease)
               {
+                other.Sound();
+                speedIncrease = true;
+                println("works  speed incrase", speedIncrease );
                 SObj.remove(other);
+              } else if (other instanceof FoodGrowth)
+              {
+                ((FoodGrowth) other).applyTo((Snake)sobj);
+
+                SObj.remove(other);
+                addApple = !addApple;
               }
             }
           }
         }
       }
     }
+
+
+    return addApple;
   }
 
-  return addApple1;
-}
+  boolean  checkPowerup()
+  {
+    boolean addApple1  = false;
+    for (int i= SObj.size () -1; i >= 0; i--)
+    {
+      SnakeObj sobj = SObj.get(i);
+      if ( sobj instanceof Level1 ||sobj instanceof Level2 || sobj instanceof Level3)
+      {
+        for (int j = SObj.size () -1; j >=0; j--)
+        {
+          SnakeObj other =  SObj.get(j);
+          if (other instanceof FoodGrowth || other instanceof SDecrease  || other instanceof SIncrease)
+          {
+            for (int c = 0; c < sobj.levelsquares.size(); c ++)
+            {
+              if (other.direction.get(0).dist(sobj.levelsquares.get(c)) < other.snakeWidth + other.snakeWidth)
+              {
+
+                if (other instanceof FoodGrowth)
+                {
+                  SObj.remove(other);
+                  addApple1 = true;
+                }
+
+                if (other instanceof SDecrease)
+                {
+                  SObj.remove(other);
+                }
+                if (other instanceof SIncrease)
+                {
+                  SObj.remove(other);
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    return addApple1;
+  }

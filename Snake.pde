@@ -16,25 +16,22 @@ class Snake  extends SnakeObj
   {
     super(width*0.9f, height*0.5f, 10);
     textWH = width * 0.040f;
-    score = 0;
+    score = 80;
     SnakeS = 1;
     lives = 3;
     framerateLV2 = 35;
     x = width/3;
     y = height/3;
     dir = new PVector(0, 0);
-    audio = minim.loadFile("SnakeBite.wav");
+    //audio = minim.loadFile("level1A.mp3");
+    
   }
   // method to draw the snake
 
 
 
 
-  void Sound()
-  {
-    audio.rewind();
-    audio.play();
-  }
+  
 
   void Reset()
   {
@@ -137,5 +134,11 @@ class Snake  extends SnakeObj
     }
     dir.x = direction.get(0).x;
     dir.y = direction.get(0).y;
+  }
+  
+  void Sound()
+  {
+    audio.rewind();
+    audio.play();
   }
 }
