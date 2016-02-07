@@ -56,8 +56,6 @@ void LoadAudio()
  audio2.play();
  audio2.rewind();
  }
- 
- 
  }
  */
 
@@ -72,7 +70,7 @@ void setup ()
   SObj.add(Snakeadd);
   Snakeadd =  new FoodGrowth();
   SObj.add(Snakeadd);
-  bg = loadImage("snakeB1.jpg");
+  bg = loadImage("bgG.png");
 }
 
 void GameLevel()
@@ -103,25 +101,22 @@ void draw()
 
   boolean addApple; 
   boolean addAppleCheck;
-  println(ScoreC);
-  background(255);
-  // println(mouseX, mouseY);
+  background(bg);
+  
+  
   //calling method to change levels
-
   GameLevel();
 
   
   switch (ScoreB)
   {
   case 0:
-
-
-
+  
     SObj.remove(levels);
     levels = new Level1();
     SObj.add(levels);
     ScoreC = !ScoreC;
-    levels.Sound();
+   // levels.Sound();
   
 
     ScoreB = 5;
@@ -135,7 +130,7 @@ void draw()
     levels = new Level2();
     SObj.add(levels);
     
-    levels.Sound();
+    //levels.Sound();
     textSize(20);
     fill(0);
     
@@ -147,16 +142,13 @@ void draw()
     {
     
        //levels.audio.pause();
-
       SObj.remove(levels);
       frameRate(speed2);
       levels = new Level3();
       SObj.add(levels);
-    
+      //levels.Sound();
       
-      levels.Sound();
       textSize(20);
-      
       fill(0);
       text("Speed : " +speed2, width*0.02, height*0.1);
       ScoreC = !ScoreC ;
@@ -212,9 +204,7 @@ void draw()
 
 
   SnakeObj getscore = SObj.get(0);
-
-
-  //println(getscore.score);
+  
   if (frameCount % 300 == 0 && stopSpeed == false && getscore.score >100)
   {
     Snakeadd =  new SDecrease();
@@ -235,8 +225,6 @@ void draw()
     Snakeadd =  new SIncrease();
     SObj.add(Snakeadd);
     SpeedIncrement ++;
-
-    //println("SpeedIn", SpeedIncrement);
 
     // when speed reaches 3 then it stop adding speed power up
     if ( SpeedIncrement == 3)
@@ -259,29 +247,22 @@ void changeFrameRate()
     speedDecrease = !speedDecrease ;
   } else if ( speedDecrease == true && ScoreC == false)
   {
-    println("drecreased", speed2);
+    
     speed2 -= 5;
-
-
+    
     frameRate(speed2);
-
     speedDecrease = !speedDecrease ;
   }
-
-
   // code to increase the framerate
-
+  
   if (speedIncrease == true && ScoreC == true)
   {
-
-
     speed1 += 10;
     frameRate(speed1);
 
     speedIncrease = !speedIncrease ;
   } else if ( speedIncrease == true && ScoreC == false )
   {
-    println("inrecreased", speed2);
     speed2 += 15;
     frameRate(speed2);
 
@@ -289,15 +270,12 @@ void changeFrameRate()
   }
 }
 
-
-
 // starting game calling the methods from base class
 void GameStart()
 {
   // running methods in the arraylist and passing values from he arraylis to the superclass
   for (int i = SObj.size () -1; i >=0; i--)
   {
-    //println(SObj.size());
     SnakeObj sobj = SObj.get(i);
     sobj.Render();
     sobj.Update();
@@ -306,7 +284,6 @@ void GameStart()
 
   void checkSnakeColli()
   {
-
     for (int i =  SObj.size ()-1; i >= 0; i--)
     {
       SnakeObj sbj = SObj.get(i);
@@ -322,19 +299,19 @@ void GameStart()
           {
             for (int c = 0; c < levelCheck.levelsquares.size (); c++ )
             {
+              
               if (sbj.direction.get(0).dist(levelCheck.levelsquares.get(c)) < sbj.snakeWidth)
               {
+                println(sbj.direction.get(0).dist(levelCheck.levelsquares.get(c)));
                 gameT = false;
               }
+              
             }
           }
         }
       }
     }
-
-
-
-
+    
     /// other collision
     for (int i =  SObj.size ()-1; i >= 0; i--)
     {
@@ -387,7 +364,7 @@ void GameStart()
                 //change i
 
                 speedDecrease = true;
-                println("works decreae", speedDecrease );
+               
 
 
                 SObj.remove(other);
@@ -395,7 +372,7 @@ void GameStart()
               {
                 other.Sound();
                 speedIncrease = true;
-                println("works  speed incrase", speedIncrease );
+               
                 SObj.remove(other);
               } else if (other instanceof FoodGrowth)
               {

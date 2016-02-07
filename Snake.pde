@@ -16,7 +16,7 @@ class Snake  extends SnakeObj
   {
     super(width*0.8, height*0.4,width/2,height/2, 10);  
     textWH = width * 0.040f;
-    score = 300;
+    score = 0;
     SnakeS = 1;
     framerateLV2 = 35;
     x = width/3;

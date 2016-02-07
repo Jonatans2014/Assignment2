@@ -14,6 +14,7 @@ abstract class SnakeObj
   color collour;
   String move;
   int framerateLV2;
+  PImage fence;
   AudioPlayer audio;
   
   
@@ -40,6 +41,7 @@ abstract class SnakeObj
     move = null;
     lives = 3;
     framerateLV2 = 35;
+    fence = null;
   }
 
 
