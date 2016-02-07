@@ -357,7 +357,8 @@ void GameStart()
           {
             if (sobj.direction.get(0).dist(other.direction.get(0)) < sobj.snakeWidth +sobj.snakeWidth)
             {
-
+                  
+                sobj.Sound();
 
               if (other instanceof SDecrease)
               {

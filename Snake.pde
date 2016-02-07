@@ -23,7 +23,7 @@ class Snake  extends SnakeObj
     x = width/3;
     y = height/3;
     dir = new PVector(0, 0);
-    //audio = minim.loadFile("level1A.mp3");
+    audio = minim.loadFile("SnakeBite.wav");
     
   }
   // method to draw the snake
