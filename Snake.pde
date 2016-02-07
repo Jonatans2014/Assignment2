@@ -8,29 +8,34 @@ class Snake  extends SnakeObj
   int SnakeS;
   float x;
   float y;
-  PVector dir;
- 
-
+  
+  PImage snakeUp;
+  PImage snakeRight;
+  PImage snakeLeft;
+  PImage snakeDown;
+   int boundaries;
+  boolean start;
+  //snake-graphics1.png
   // constructor
   Snake()
   {
-    super(width*0.8, height*0.4,width/2,height/2, 10);  
+    super(width*0.8, height*0.4, width/2, height/2, 30);  
     textWH = width * 0.040f;
-    score = 0;
+    score = 300;
     SnakeS = 1;
-    framerateLV2 = 35;
+    
     x = width/3;
     y = height/3;
-    dir = new PVector(0, 0);
-    audio = minim.loadFile("SnakeBite.wav");
     
+    audio = minim.loadFile("SnakeBite.wav");
+    snakeUp = loadImage("snake-graphics1.png");
+    snakeRight = loadImage("snake-graphics3.png");
+    snakeLeft = loadImage("snake-graphics2.png");
+    snakeDown = loadImage("snake-graphics4.png");
+    start = false;
+    boundaries = 20;
   }
   // method to draw the snake
-
-
-
-
-  
 
   void Reset()
   {
@@ -45,14 +50,17 @@ class Snake  extends SnakeObj
     textSize(20);
     direction.add(new PVector(-snakeWidth, -snakeWidth));
     // display life
-    fill(#FC0509);
 
-    fill(0);
 
-    for (int i = 0; i < SnakeSize; i++)
+    if (start ==false)
     {
-      stroke(255);
-      rect(direction.get(i).x, direction.get(i).y, snakeWidth, snakeWidth);
+      image(snakeUp, direction.get(0).x, direction.get(0).y, snakeWidth, snakeWidth);
+    }
+
+    for (int i = 1; i < SnakeSize; i++)
+    {
+      fill(#0B9533);
+      rect(direction.get(i).x, direction.get(i).y, snakeWidth-2, snakeWidth-2 );
     }  
     // add score
     text("Score: " + score, width*0.88, height*0.1);
@@ -61,7 +69,6 @@ class Snake  extends SnakeObj
   // method to move the snake
   void Update()
   {
-
     if (key == CODED) {
       if (keyCode == UP) {
         move = "w";
@@ -76,11 +83,7 @@ class Snake  extends SnakeObj
         move = "a";
       }
     }
-
-
     //switch case
-
-
     for (int j = SnakeSize -1; j > 0; j-- ) {
 
       direction.get(j).x=  direction.get(j-1).x;
@@ -92,49 +95,57 @@ class Snake  extends SnakeObj
     // if function to move 
     if (move == "w")
     {
+      start = true;
+      image(snakeUp, direction.get(0).x, direction.get(0).y, snakeWidth, snakeWidth);
 
       direction.get(0).sub(backForth);
     }
     if (move == "s")
     {
+      start = true;
+
+      image(snakeDown, direction.get(0).x, direction.get(0).y, snakeWidth, snakeWidth);
       direction.get(0).add(backForth);
     }
     if (move == "d")
     {
+      start = true;
+      image(snakeRight, direction.get(0).x, direction.get(0).y, snakeWidth, snakeWidth);
       direction.get(0).add(LeftRight);
     }
     if (move == "a")
     {
+      start = true;
+      image(snakeLeft, direction.get(0).x, direction.get(0).y, snakeWidth, snakeWidth);
       direction.get(0).sub(LeftRight);
     }
 
 
 
     // code to come out from anothe border
-    if (direction.get(0).x < snakeWidth)
+    if (direction.get(0).x < boundaries)
     {
 
-      direction.get(0).x = width -snakeWidth;
+      direction.get(0).x = width -boundaries;
     }
 
-    if (direction.get(0).x > width -snakeWidth)
+    if (direction.get(0).x > width -boundaries)
     {
-      direction.get(0).x = snakeWidth;
+      direction.get(0).x = boundaries;
     }
 
-    if (direction.get(0).y < snakeWidth)
+    if (direction.get(0).y < boundaries)
     {
-      direction.get(0).y = height-snakeWidth;
+      direction.get(0).y = height-boundaries;
     }
 
-    if (direction.get(0).y > height -snakeWidth)
+    if (direction.get(0).y > height -boundaries)
     {
-      direction.get(0).y = snakeWidth;
+      direction.get(0).y = boundaries;
     }
-    dir.x = direction.get(0).x;
-    dir.y = direction.get(0).y;
+    
   }
-  
+
   void Sound()
   {
     audio.rewind();

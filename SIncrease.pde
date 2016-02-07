@@ -15,7 +15,7 @@ class SIncrease extends SnakeObj
   {
     fill(collour);
     // display life
-    image(antidote, direction.get(0).x, direction.get(0).y, 20, 20);
+    image(antidote, direction.get(0).x, direction.get(0).y, snakeWidth, snakeWidth);
   }
   void Sound()
   {
