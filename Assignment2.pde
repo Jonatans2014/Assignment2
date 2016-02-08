@@ -14,8 +14,8 @@ boolean speedDecrease = false;
 boolean speedIncrease = false;
 boolean stopSpeed = false;
 boolean stopIncreaseSpeed = false;
-int speed1 = 15;
-int speed2 = 18;
+int speed1 = 14;
+int speed2 = 15;
 int SpeedDecrement = 0;
 int SpeedIncrement  = 0;
 AudioPlayer audio;
@@ -28,13 +28,14 @@ void setup ()
   size(1000, 800);
   minim = new Minim(this);
 
-  frameRate(5);
+  frameRate(12);
   background(255);
   Snakeadd =  new Snake();
   SObj.add(Snakeadd);
   Snakeadd =  new FoodGrowth();
   SObj.add(Snakeadd);
   bg = loadImage("bgG.png");
+  textSize(20);
 }
 
 void GameLevel()

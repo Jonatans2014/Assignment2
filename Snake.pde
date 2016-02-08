@@ -8,12 +8,12 @@ class Snake  extends SnakeObj
   int SnakeS;
   float x;
   float y;
-  
+
   PImage snakeUp;
   PImage snakeRight;
   PImage snakeLeft;
   PImage snakeDown;
-   int boundaries;
+  int boundaries;
   boolean start;
   //snake-graphics1.png
   // constructor
@@ -23,10 +23,10 @@ class Snake  extends SnakeObj
     textWH = width * 0.040f;
     score = 300;
     SnakeS = 1;
-    
+
     x = width/3;
     y = height/3;
-    
+
     audio = minim.loadFile("SnakeBite.wav");
     snakeUp = loadImage("snake-graphics1.png");
     snakeRight = loadImage("snake-graphics3.png");
@@ -42,7 +42,7 @@ class Snake  extends SnakeObj
 
     direction.get(0).x = x;
     direction.get(0).y = y;
-    rect(direction.get(0).x, direction.get(0).y, snakeWidth, snakeWidth);
+    ellipse(direction.get(0).x, direction.get(0).y, snakeWidth, snakeWidth);
   }
   void Render()
   {
@@ -59,10 +59,14 @@ class Snake  extends SnakeObj
 
     for (int i = 1; i < SnakeSize; i++)
     {
-      fill(#0B9533);
-      rect(direction.get(i).x, direction.get(i).y, snakeWidth-2, snakeWidth-2 );
+      
+      fill(#73B671);
+      stroke(#6A9E68);
+      rect(direction.get(i).x, direction.get(i).y, snakeWidth, snakeWidth-2,10);
     }  
     // add score
+    fill(0);
+    textSize(20);
     text("Score: " + score, width*0.88, height*0.1);
   }
 
@@ -143,7 +147,6 @@ class Snake  extends SnakeObj
     {
       direction.get(0).y = boundaries;
     }
-    
   }
 
   void Sound()

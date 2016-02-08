@@ -31,7 +31,7 @@ class Level2 extends SnakeObj
       
       levelsquares.add(new PVector(0, -height*0.0625+(snakeWidth * i)));
       levelsquares.add(new PVector(width*0.97, -height*0.0625+(snakeWidth * i)));
-      levelsquares.add(new PVector((0  +(10 *i)), height*0.96));
+      levelsquares.add(new PVector((0  +(snakeWidth *i)), height*0.96));
       levelsquares.add(new PVector(width*0.97, height*0.7+(snakeWidth*i)));
       levelsquares.add(new PVector((width*0.97 -(snakeWidth *i)), height*0.965));
       levelsquares.add(new PVector((0+(snakeWidth *i)), 0));
