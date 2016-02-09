@@ -21,7 +21,7 @@ class Snake  extends SnakeObj
   {
     super(width*0.8, height*0.4, width/2, height/2, 30);  
     textWH = width * 0.040f;
-    score = 300;
+    score = 90;
     SnakeS = 1;
 
     x = width/3;
@@ -67,7 +67,7 @@ class Snake  extends SnakeObj
     // add score
     fill(0);
     textSize(20);
-    text("Score: " + score, width*0.88, height*0.1);
+    text("Score: " + score, width*0.84, height*0.1);
   }
 
   // method to move the snake
@@ -93,8 +93,6 @@ class Snake  extends SnakeObj
       direction.get(j).x=  direction.get(j-1).x;
       direction.get(j).y=  direction.get(j-1).y;
     } 
-
-
 
     // if function to move 
     if (move == "w")

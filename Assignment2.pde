@@ -1,5 +1,7 @@
 import ddf.minim.*;
+import controlP5.*;
 
+ControlP5 menu;
 Minim minim;
 // arraylist with the obj type
 ArrayList<SnakeObj> SObj = new ArrayList<SnakeObj>();
@@ -7,15 +9,16 @@ ArrayList<SnakeObj> SObj = new ArrayList<SnakeObj>();
 // globa boolean
 boolean gameT = true;
 PImage bg;
-int ScoreB = 0;
+int ScoreB = 3;
 boolean ScoreC = true;
 boolean  reset =  false;
 boolean speedDecrease = false;
 boolean speedIncrease = false;
 boolean stopSpeed = false;
 boolean stopIncreaseSpeed = false;
-int speed1 = 14;
-int speed2 = 15;
+boolean turnoffSong = false;
+int speed1 = 10;
+int speed2 = 14;
 int SpeedDecrement = 0;
 int SpeedIncrement  = 0;
 AudioPlayer audio;
@@ -30,12 +33,116 @@ void setup ()
 
   frameRate(12);
   background(255);
+  bg = loadImage("bgG.png");
+  audio = minim.loadFile("snake1.wav");
+  textSize(20);
   Snakeadd =  new Snake();
   SObj.add(Snakeadd);
   Snakeadd =  new FoodGrowth();
   SObj.add(Snakeadd);
-  bg = loadImage("bgG.png");
-  textSize(20);
+
+
+  menu();
+}
+
+void addClasses()
+{
+}
+
+void menu()
+{
+
+  ControlP5 menu ;
+  menu = new ControlP5(this);
+
+  PImage bgMenu;
+  PFont font = createFont("arial", 20);
+
+
+  bgMenu = loadImage("Menu1bg.png");
+  background(bgMenu);
+
+  //Buttons
+
+
+
+  audio.play();
+
+  fill(#03647E);
+  textSize(35);
+
+  text("CONTINUE ", width*0.41, 550 );
+
+  text("NEW GAME", width*0.41, 600 );
+
+  text("HIGHSCORE", width*0.40, 650 );
+  text("QUIT ", width*0.46, 700 );
+
+
+  // hover over menu
+  if (mouseX > 413 && mouseX <590 && mouseY >520 && mouseY <550)
+  {
+    fill(0);
+    text("CONTINUE ", width*0.41, 550 );
+  }
+
+  if (mouseX > 413 && mouseX <590 && mouseY >570 && mouseY <600)
+  {
+    fill(0);
+    text("NEW GAME", width*0.41, 600 );
+  }
+  if (mouseX > 400 && mouseX <590 && mouseY >620 && mouseY <650)
+  {
+    fill(0);
+    text("HIGHSCORE", width*0.40, 650 );
+  }
+
+  if (mouseX > width*0.46 && mouseX <550 && mouseY >670 && mouseY <698)
+  {
+    fill(0);
+    text("QUIT ", width*0.46, 700 );
+  }
+
+
+  if (mousePressed && mouseX > 413 && mouseX <590 && mouseY >520 && mouseY <550 )
+  {
+    println("wok");
+  }
+  if (mousePressed && mouseX > 413 && mouseX <590 && mouseY >570 && mouseY <600 )
+  {
+    ScoreB = 0;
+    SObj.clear(); 
+    println("works", SObj.size());
+    Snakeadd =  new Snake();
+    SObj.add(Snakeadd);
+    Snakeadd =  new FoodGrowth();
+    SObj.add(Snakeadd);
+
+
+    if (turnoffSong == true)
+    {
+      levels.audio.pause();
+    }
+  }
+  if (mousePressed && mouseX > 400 && mouseX <590 && mouseY >620 && mouseY <650)
+  {
+    println("wok2");
+  }
+  if (mousePressed && mouseX > width*0.46 && mouseX <550 && mouseY >670 && mouseY <698)
+  {
+    println("wok3");
+  }
+
+  /*
+  menu = new ControlP5(this);
+   menu.addTextfield("Name")
+   .setPosition(20, 100)
+   .setSize(200, 40)
+   .setFont(font)
+   .setFocus(true)
+   .setColor(color(255, 0, 0))
+   ;
+   */
 }
 
 void GameLevel()
@@ -43,7 +150,7 @@ void GameLevel()
 
   SnakeObj check = SObj.get(0);
 
-  if (check.score == 0 &&  ScoreC  == true)
+  if (check.score == 0 &&  ScoreC  == true && ScoreB !=3)
   {
     ScoreB = 0;
   } else if (check.score >= 100 &&  check.score < 290 &&  ScoreC == false)
@@ -58,22 +165,41 @@ void GameLevel()
   }
 }
 
+//pause game and bring back to the menu
+void keyPressed()
+{
+  if (key == 'p' || key == 'P' )
+  {
+    ScoreB = 3;
+    audio.rewind();
+
+
+    if (turnoffSong == true)
+    {
+      levels.audio.pause();
+    }
+  }
+}
 void draw()
 {
 
 
+  //println(mouseX, mouseY);
   boolean addApple; 
   boolean addAppleCheck;
-  background(bg);
+
 
 
   //calling method to change levels
   GameLevel();
 
 
+
+
   switch (ScoreB)
   {
   case 0:
+
 
     SObj.remove(levels);
     levels = new Level1();
@@ -81,30 +207,35 @@ void draw()
     ScoreC = !ScoreC;
     levels.Sound();
 
-
-    ScoreB = 5;
+    turnoffSong = false;
+    ScoreB = 10;
+    println(SObj.get(0).move);
     break;
 
   case 1:
 
-    levels.audio.pause();
+   
+
+    audio.pause();
     SObj.remove(levels);
     frameRate(speed1);
     levels = new Level2();
     SObj.add(levels);
 
     levels.Sound();
+    turnoffSong = true;
     textSize(20);
     fill(0);
 
     ScoreC = !ScoreC;
-    ScoreB = 5;
+    ScoreB = 10;
     break;
 
   case 2:
     {
 
       //levels.audio.pause();
+
       SObj.remove(levels);
       frameRate(speed2);
       levels = new Level3();
@@ -113,9 +244,16 @@ void draw()
 
       textSize(20);
       fill(0);
-      text("Speed : " +speed2, width*0.02, height*0.1);
+      turnoffSong = true;
       ScoreC = !ScoreC ;
-      ScoreB = 5;
+      ScoreB = 10;
+      break;
+    }
+  case 3:
+    {
+
+      menu();
+
       break;
     }
   }
@@ -124,25 +262,30 @@ void draw()
 
   if (levels instanceof Level1)
   {
-    text("Speed : " +20, width*0.02, height*0.1);
+    text("Speed : " +20, width*0.04, height*0.1);
   }
 
   if (levels instanceof Level2)
   {
-    text("Speed : " +speed1, width*0.02, height*0.1);
+    text("Speed : " +speed1, width*0.04, height*0.1);
   }
 
   if (levels instanceof Level3)
   {
-    text("Speed : " +speed2, width*0.02, height*0.1);
+    text("Speed : " +speed2, width*0.04, height*0.1);
   }
   // calling method
   Gameover game = new Gameover();
   //stop or starting the game
-  if (gameT == true )
+
+
+  if (gameT == true && ScoreB!= 3)
   {
+
     GameStart();
-  } else
+  } 
+
+  if (gameT == false)
   {
     game.Display();
   }
@@ -203,7 +346,7 @@ void changeFrameRate()
 
   if (speedDecrease == true && ScoreC == true)
   {
-    speed1 -= 5;
+    speed1 -= 3;
 
     frameRate(speed1);
 
@@ -211,7 +354,7 @@ void changeFrameRate()
   } else if ( speedDecrease == true && ScoreC == false)
   {
 
-    speed2 -= 8;
+    speed2 -= 4;
 
     frameRate(speed2);
     speedDecrease = !speedDecrease ;
@@ -236,6 +379,8 @@ void changeFrameRate()
 // starting game calling the methods from base class
 void GameStart()
 {
+
+  background(bg);
   // running methods in the arraylist and passing values from he arraylis to the superclass
   for (int i = SObj.size () -1; i >=0; i--)
   {
@@ -265,7 +410,7 @@ void checkSnakeColli()
 
             if (sbj.direction.get(0).dist(levelCheck.levelsquares.get(c)) < sbj.snakeWidth)
             {
-              println(sbj.direction.get(0).dist(levelCheck.levelsquares.get(c)));
+
               gameT = false;
             }
           }
@@ -284,12 +429,12 @@ void checkSnakeColli()
       for (int j = 1; j < sbj.SnakeSize; j ++)
       {
         // check collision with own snake
-        println(sbj.snakeWidth);
+
         if (sbj.direction.get(0).dist(sbj.direction.get(j)) < sbj.snakeWidth)
 
         { 
 
-          println(sbj.direction.get(0).dist(sbj.direction.get(j)));
+
           gameT = false;
         }
       }
@@ -373,7 +518,7 @@ boolean  checkPowerup()
         {
           for (int c = 0; c < sobj.levelsquares.size(); c ++)
           {
-            if (other.direction.get(0).dist(sobj.levelsquares.get(c)) < other.snakeWidth)
+            if (other.direction.get(0).dist(sobj.levelsquares.get(c)) < other.snakeWidth+5)
             {
 
               if (other instanceof FoodGrowth)

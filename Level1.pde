@@ -9,7 +9,7 @@ class Level1 extends SnakeObj
 
     super(width*0.5, height/5,width*0.5,height/5, 30);
     collour =  color(#A52A2A);
-    audio = minim.loadFile("level1A.mp3");
+    
      fence =  loadImage("fence_64x32.png");
     
   }
@@ -43,9 +43,5 @@ class Level1 extends SnakeObj
       
     }
   }
-  void Sound()
-  {
-    audio.rewind();
-    audio.play();
-  }
+ 
 }

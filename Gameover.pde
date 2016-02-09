@@ -19,6 +19,7 @@ class Gameover
    // method to implement when its gonna be game over
    void Display()
   {
+    background(255);
     fill(0);
     textSize(40);
     text("Game Over",x,y);
