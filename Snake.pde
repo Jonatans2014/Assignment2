@@ -37,13 +37,7 @@ class Snake  extends SnakeObj
   }
   // method to draw the snake
 
-  void Reset()
-  {
-
-    direction.get(0).x = x;
-    direction.get(0).y = y;
-    ellipse(direction.get(0).x, direction.get(0).y, snakeWidth, snakeWidth);
-  }
+  
   void Render()
   {
 

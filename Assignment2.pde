@@ -17,6 +17,7 @@ boolean speedIncrease = false;
 boolean stopSpeed = false;
 boolean stopIncreaseSpeed = false;
 boolean turnoffSong = false;
+boolean adanvanceL = false;
 int speed1 = 10;
 int speed2 = 14;
 int SpeedDecrement = 0;
@@ -106,7 +107,14 @@ void menu()
 
   if (mousePressed && mouseX > 413 && mouseX <590 && mouseY >520 && mouseY <550 )
   {
-    println("wok");
+    
+    if(SObj.size() >2)
+    {
+      ScoreB = 10;
+      
+    }
+   
+    
   }
   if (mousePressed && mouseX > 413 && mouseX <590 && mouseY >570 && mouseY <600 )
   {
@@ -147,11 +155,17 @@ void menu()
 
 void GameLevel()
 {
-
+  
+  
   SnakeObj check = SObj.get(0);
-
+   //send back to the menu and allow the user to choose whether wanna keep continues or not
+  
+  
+  
+  // change levels
   if (check.score == 0 &&  ScoreC  == true && ScoreB !=3)
   {
+    
     ScoreB = 0;
   } else if (check.score >= 100 &&  check.score < 290 &&  ScoreC == false)
   {
@@ -162,6 +176,18 @@ void GameLevel()
   {
 
     ScoreB = 2;
+  }
+  
+   if (check.score >= 100 &&  ScoreC  == false && ScoreB !=3)
+  {
+    
+    ScoreB = 3;
+    ScoreC = !ScoreC;
+    println(ScoreC);
+    SObj.get(0).direction.get(0).x = width*0.8;
+    SObj.get(0).direction.get(0).y = height*0.5;
+    println(ScoreC);
+    
   }
 }
 
@@ -184,7 +210,7 @@ void draw()
 {
 
 
-  //println(mouseX, mouseY);
+  println(mouseX, mouseY);
   boolean addApple; 
   boolean addAppleCheck;
 
@@ -192,8 +218,6 @@ void draw()
 
   //calling method to change levels
   GameLevel();
-
-
 
 
   switch (ScoreB)
