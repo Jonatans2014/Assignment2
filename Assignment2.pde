@@ -1,3 +1,11 @@
+/*
+
+    Assignment  2
+    Jonatans A de Souza
+    This is a Snake Game*/
+    
+
+
 import ddf.minim.*;
 import controlP5.*;
 
@@ -6,7 +14,7 @@ Minim minim;
 // arraylist with the obj type
 ArrayList<SnakeObj> SObj = new ArrayList<SnakeObj>();
 
-// globa boolean
+// global boolean
 boolean gameT = true;
 PImage bg;
 int ScoreB = 3;
@@ -45,9 +53,6 @@ void setup ()
   SObj.add(Snakeadd);
 }
 
-void addClasses()
-{
-}
 
 void menu()
 {
@@ -88,7 +93,7 @@ void menu()
 
   if (mouseX > 413 && mouseX <590 && mouseY >570 && mouseY <600)
   {
-    println("aqui");
+    
     fill(0);
     text("NEW GAME", width*0.41, 600 );
   }
@@ -112,7 +117,7 @@ void menu()
     {
       ScoreB = 10;
     }
-    if (SObj.get(0).score == 100 &&  ScoreC  == false &&  ScoreB !=3)
+    if (SObj.size() >2 && SObj.get(0).score == 100 &&  ScoreC  == false &&  ScoreB !=3)
     {
 
       SObj.get(0).direction.get(0).x = width*0.8;
@@ -122,7 +127,7 @@ void menu()
       ScoreB = 1;
     }
 
-    if (SObj.get(0).score == 120 &&  ScoreC  == true &&  ScoreB !=3)
+    if (SObj.size() >2 && SObj.get(0).score == 120 &&  ScoreC  == true &&  ScoreB !=3)
     {
       SObj.get(0).direction.get(0).x = width*0.8;
       SObj.get(0).direction.get(0).y = height/5;
@@ -154,7 +159,7 @@ void menu()
   }
   if (mousePressed && mouseX > width*0.46 && mouseX <550 && mouseY >670 && mouseY <698)
   {
-    println("wok3");
+    exit(); 
   }
 
   /*
@@ -214,7 +219,7 @@ void draw()
   boolean addAppleCheck;
 
 
-  println(SObj.get(0).move);
+ 
 
     
   //calling method to change levels
@@ -239,7 +244,7 @@ void draw()
 
 
     SObj.remove(levels);
-    println(SObj.get(0).move);
+   
     audio.pause();
     frameRate(speed1);
     levels = new Level2();
@@ -463,7 +468,7 @@ void checkSnakeColli()
         { 
 
           println("snake"+sbj.direction.get(0).dist(sbj.direction.get(j)));
-          gameT = false;
+         gameT = false;
         }
       }
     }

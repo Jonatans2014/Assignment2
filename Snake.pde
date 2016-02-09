@@ -69,11 +69,8 @@ class Snake  extends SnakeObj
   void Update()
   {
     
-    if(score == 100)
-    {
-      move = "v";
-    }
-      println("spaceworks");
+    
+      
     if (key == CODED) {
       if (keyCode == UP) {
         move = "w";
