@@ -10,6 +10,7 @@ import ddf.minim.*;
 import controlP5.*;
 
 ControlP5 menu;
+
 Minim minim;
 // arraylist with the obj type
 ArrayList<SnakeObj> SObj = new ArrayList<SnakeObj>();
@@ -57,8 +58,8 @@ void setup ()
 void menu()
 {
 
-  ControlP5 menu ;
-  menu = new ControlP5(this);
+ 
+  
 
   PImage bgMenu;
   PFont font = createFont("arial", 20);
@@ -195,6 +196,15 @@ void GameLevel()
 }
 
 
+
+
+
+void loadstring()
+{
+  String [] line = null;
+  
+}
+
 //pause game and bring back to the menu
 void keyPressed()
 {
@@ -213,7 +223,7 @@ void keyPressed()
 void draw()
 {
 
-
+    loadstring();
   GameLevel();
   boolean addApple; 
   boolean addAppleCheck;
@@ -316,10 +326,10 @@ void draw()
   } 
 
   //stop or starting the game
-  Gameover game = new Gameover();
+  
   if (gameT == false)
   {
-    game.Display();
+    GameOver();
   }
   // instance of baseclass
 
@@ -373,6 +383,19 @@ void draw()
   }
 }
 
+
+void GameOver()
+{
+  
+   // method to implement when its gonna be game over  
+    background(255);
+    fill(0);
+    textSize(40);
+    text("Game Over",width/3, height/2);
+    text("Press Esc to exit  ");
+    text("Press 1 to try again ");
+  
+}
 
 void changeFrameRate()
 {
