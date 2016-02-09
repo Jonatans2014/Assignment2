@@ -6,7 +6,7 @@ class Level2 extends SnakeObj
   // constructor
   Level2()
   {
-    super(width/5, height*0.564, width/5, height*0.563, 30);    
+    super(width*0.5, height/5, width/5, height*0.563, 30);    
     collour =  color(#A52A2A);
     move = null;
     audio = minim.loadFile("Level2.mp3");

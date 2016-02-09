@@ -34,10 +34,11 @@ class Snake  extends SnakeObj
     snakeDown = loadImage("snake-graphics4.png");
     start = false;
     boundaries = 20;
+    Control = false;
   }
   // method to draw the snake
 
-  
+
   void Render()
   {
 
@@ -53,10 +54,10 @@ class Snake  extends SnakeObj
 
     for (int i = 1; i < SnakeSize; i++)
     {
-      
+
       fill(#73B671);
       stroke(#6A9E68);
-      rect(direction.get(i).x, direction.get(i).y, snakeWidth, snakeWidth-2,10);
+      rect(direction.get(i).x, direction.get(i).y, snakeWidth, snakeWidth-2, 10);
     }  
     // add score
     fill(0);
@@ -67,6 +68,12 @@ class Snake  extends SnakeObj
   // method to move the snake
   void Update()
   {
+    
+    if(score == 100)
+    {
+      move = "v";
+    }
+      println("spaceworks");
     if (key == CODED) {
       if (keyCode == UP) {
         move = "w";
@@ -87,7 +94,6 @@ class Snake  extends SnakeObj
       direction.get(j).x=  direction.get(j-1).x;
       direction.get(j).y=  direction.get(j-1).y;
     } 
-
     // if function to move 
     if (move == "w")
     {
@@ -116,7 +122,7 @@ class Snake  extends SnakeObj
       direction.get(0).sub(LeftRight);
     }
 
-
+    
 
     // code to come out from anothe border
     if (direction.get(0).x < boundaries)

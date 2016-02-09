@@ -14,6 +14,7 @@ abstract class SnakeObj
   color collour;
   String move;
   PImage fence;
+  boolean Control;
   AudioPlayer audio;
 
 

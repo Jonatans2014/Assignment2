@@ -5,7 +5,7 @@ class Level3  extends SnakeObj
  
    Level3()
   {
-    super(width*0.5, height*0.1,width/2,height/2, 30);  
+    super(width*0.5, height/5,width/2,height/2, 30);  
     collour =  color(#A52A2A);
    
     move = null;

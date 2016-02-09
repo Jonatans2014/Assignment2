@@ -11,6 +11,7 @@ boolean gameT = true;
 PImage bg;
 int ScoreB = 3;
 boolean ScoreC = true;
+boolean AdvanceG = false;
 boolean  reset =  false;
 boolean speedDecrease = false;
 boolean speedIncrease = false;
@@ -18,8 +19,8 @@ boolean stopSpeed = false;
 boolean stopIncreaseSpeed = false;
 boolean turnoffSong = false;
 boolean adanvanceL = false;
-int speed1 = 10;
-int speed2 = 14;
+int speed1 = 13;
+int speed2 = 16;
 int SpeedDecrement = 0;
 int SpeedIncrement  = 0;
 AudioPlayer audio;
@@ -29,10 +30,11 @@ SnakeObj Snakeadd;
 
 void setup ()
 {
+
   size(1000, 800);
   minim = new Minim(this);
 
-  frameRate(12);
+  frameRate(10);
   background(255);
   bg = loadImage("bgG.png");
   audio = minim.loadFile("snake1.wav");
@@ -41,9 +43,6 @@ void setup ()
   SObj.add(Snakeadd);
   Snakeadd =  new FoodGrowth();
   SObj.add(Snakeadd);
-
-
-  menu();
 }
 
 void addClasses()
@@ -89,6 +88,7 @@ void menu()
 
   if (mouseX > 413 && mouseX <590 && mouseY >570 && mouseY <600)
   {
+    println("aqui");
     fill(0);
     text("NEW GAME", width*0.41, 600 );
   }
@@ -107,20 +107,36 @@ void menu()
 
   if (mousePressed && mouseX > 413 && mouseX <590 && mouseY >520 && mouseY <550 )
   {
-    
-    if(SObj.size() >2)
+
+    if (SObj.size() >2)
     {
       ScoreB = 10;
-      
     }
-   
-    
+    if (SObj.get(0).score == 100 &&  ScoreC  == false &&  ScoreB !=3)
+    {
+
+      SObj.get(0).direction.get(0).x = width*0.8;
+      SObj.get(0).direction.get(0).y = height/5;
+
+      ScoreC = true;
+      ScoreB = 1;
+    }
+
+    if (SObj.get(0).score == 120 &&  ScoreC  == true &&  ScoreB !=3)
+    {
+      SObj.get(0).direction.get(0).x = width*0.8;
+      SObj.get(0).direction.get(0).y = height/5;
+
+      ScoreC = false;
+      ScoreB = 2;
+    }
   }
   if (mousePressed && mouseX > 413 && mouseX <590 && mouseY >570 && mouseY <600 )
   {
     ScoreB = 0;
     SObj.clear(); 
-    println("works", SObj.size());
+    frameRate(12);
+
     Snakeadd =  new Snake();
     SObj.add(Snakeadd);
     Snakeadd =  new FoodGrowth();
@@ -155,41 +171,24 @@ void menu()
 
 void GameLevel()
 {
-  
-  
-  SnakeObj check = SObj.get(0);
-   //send back to the menu and allow the user to choose whether wanna keep continues or not
-  
-  
-  
-  // change levels
-  if (check.score == 0 &&  ScoreC  == true && ScoreB !=3)
-  {
-    
-    ScoreB = 0;
-  } else if (check.score >= 100 &&  check.score < 290 &&  ScoreC == false)
-  {
 
+
+  SnakeObj check = SObj.get(0);
+  //send back to the menu and allow the user to choose whether wanna keep continues or not
+
+  if (SObj.get(0).score == 100 &&  ScoreC  == false &&  ScoreB !=3)
+  {
 
     ScoreB = 1;
-  } else if (check.score >= 300 && ScoreC == true)
-  {
-
-    ScoreB = 2;
-  }
-  
-   if (check.score >= 100 &&  ScoreC  == false && ScoreB !=3)
-  {
-    
     ScoreB = 3;
-    ScoreC = !ScoreC;
-    println(ScoreC);
-    SObj.get(0).direction.get(0).x = width*0.8;
-    SObj.get(0).direction.get(0).y = height*0.5;
-    println(ScoreC);
-    
+  }
+  if (check.score == 120 && ScoreC == true)
+  {
+    ScoreB = 2;
+    ScoreB = 3;
   }
 }
+
 
 //pause game and bring back to the menu
 void keyPressed()
@@ -210,15 +209,15 @@ void draw()
 {
 
 
-  println(mouseX, mouseY);
+  GameLevel();
   boolean addApple; 
   boolean addAppleCheck;
 
 
+  println(SObj.get(0).move);
 
+    
   //calling method to change levels
-  GameLevel();
-
 
   switch (ScoreB)
   {
@@ -228,48 +227,50 @@ void draw()
     SObj.remove(levels);
     levels = new Level1();
     SObj.add(levels);
-    ScoreC = !ScoreC;
-    levels.Sound();
 
+    levels.Sound();
+    ScoreC = false;
     turnoffSong = false;
     ScoreB = 10;
-    println(SObj.get(0).move);
+
     break;
 
   case 1:
 
-   
 
-    audio.pause();
     SObj.remove(levels);
+    println(SObj.get(0).move);
+    audio.pause();
     frameRate(speed1);
     levels = new Level2();
-    SObj.add(levels);
+
 
     levels.Sound();
     turnoffSong = true;
     textSize(20);
     fill(0);
 
-    ScoreC = !ScoreC;
+    SObj.add(levels);
     ScoreB = 10;
     break;
 
+
+
   case 2:
     {
-
-      //levels.audio.pause();
-
       SObj.remove(levels);
+      audio.pause();
+      levels.audio.pause();
+
       frameRate(speed2);
       levels = new Level3();
-      SObj.add(levels);
+
       levels.Sound();
 
       textSize(20);
       fill(0);
       turnoffSong = true;
-      ScoreC = !ScoreC ;
+      SObj.add(levels);
       ScoreB = 10;
       break;
     }
@@ -281,6 +282,7 @@ void draw()
       break;
     }
   }
+
 
   // display speed
 
@@ -299,8 +301,7 @@ void draw()
     text("Speed : " +speed2, width*0.04, height*0.1);
   }
   // calling method
-  Gameover game = new Gameover();
-  //stop or starting the game
+
 
 
   if (gameT == true && ScoreB!= 3)
@@ -309,6 +310,8 @@ void draw()
     GameStart();
   } 
 
+  //stop or starting the game
+  Gameover game = new Gameover();
   if (gameT == false)
   {
     game.Display();
@@ -318,10 +321,11 @@ void draw()
   //calling methods 
   changeFrameRate();
   //LoadAudio();
-  checkSnakeColli();
+
   addApple = checkPowerup();
   addAppleCheck = checkSPowerUpcolli();
 
+  checkSnakeColli();
   // creating powerups lives and foodGrowth
   if ( addApple == true || addAppleCheck == true )
   {
@@ -434,7 +438,7 @@ void checkSnakeColli()
 
             if (sbj.direction.get(0).dist(levelCheck.levelsquares.get(c)) < sbj.snakeWidth)
             {
-
+              println("Fences"+sbj.direction.get(0).dist(sbj.direction.get(0)));
               gameT = false;
             }
           }
@@ -458,7 +462,7 @@ void checkSnakeColli()
 
         { 
 
-
+          println("snake"+sbj.direction.get(0).dist(sbj.direction.get(j)));
           gameT = false;
         }
       }
