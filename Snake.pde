@@ -15,7 +15,7 @@ class Snake  extends SnakeObj
   PImage snakeDown;
   int boundaries;
   boolean start;
-  //snake-graphics1.png
+    //snake-graphics1.png
   // constructor
   Snake()
   {
@@ -34,7 +34,7 @@ class Snake  extends SnakeObj
     snakeDown = loadImage("snake-graphics4.png");
     start = false;
     boundaries = 20;
-    Control = false;
+    getscore = false;
   }
   // method to draw the snake
 

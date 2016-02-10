@@ -1,1 +1,1 @@
-john 325,eryk 100, pam 100
+Jelo 700,John 500, Eryk 600, Pam 200

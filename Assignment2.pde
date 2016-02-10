@@ -1,9 +1,9 @@
 /*
 
-    Assignment  2
-    Jonatans A de Souza
-    This is a Snake Game*/
-    
+ Assignment  2
+ Jonatans A de Souza
+ This is a Snake Game*/
+
 
 
 import ddf.minim.*;
@@ -32,6 +32,7 @@ int speed1 = 13;
 int speed2 = 16;
 int SpeedDecrement = 0;
 int SpeedIncrement  = 0;
+PrintWriter getValue;
 AudioPlayer audio;
 
 SnakeObj levels = null;
@@ -52,14 +53,15 @@ void setup ()
   SObj.add(Snakeadd);
   Snakeadd =  new FoodGrowth();
   SObj.add(Snakeadd);
+  getValue =  createWriter("file.txt");
 }
 
 
 void menu()
 {
 
- 
-  
+
+
 
   PImage bgMenu;
   PFont font = createFont("arial", 20);
@@ -70,10 +72,13 @@ void menu()
 
   //Buttons
 
-
+  if (turnoffSong == true)
+  {
+    levels.audio.pause();
+  }
 
   audio.play();
-
+  gameT = true;
   fill(#03647E);
   textSize(35);
 
@@ -94,7 +99,7 @@ void menu()
 
   if (mouseX > 413 && mouseX <590 && mouseY >570 && mouseY <600)
   {
-    
+
     fill(0);
     text("NEW GAME", width*0.41, 600 );
   }
@@ -160,9 +165,8 @@ void menu()
   }
   if (mousePressed && mouseX > width*0.46 && mouseX <550 && mouseY >670 && mouseY <698)
   {
-    exit(); 
+    exit();
   }
-
 }
 
 void GameLevel()
@@ -192,12 +196,14 @@ void GameLevel()
 void loadstring()
 {
   String [] line = null;
-  
 }
 
 //pause game and bring back to the menu
 void keyPressed()
 {
+
+
+  
   if (key == 'p' || key == 'P' )
   {
     ScoreB = 3;
@@ -209,26 +215,43 @@ void keyPressed()
       levels.audio.pause();
     }
   }
-  
-  if(key == '1')
+
+  if (key == '1')
   {
     gameT = true;
-    SObj.remove(levels);
+
+
+
+    for (int i = 1; i < SObj.size(); i++)
+    {
+      if (SObj.size() > 2)
+      {
+        SObj.remove(i);
+      }
+    }
+
+
+    if (turnoffSong == true)
+    {
+      levels.audio.pause();
+    }
+    audio.pause();
     ScoreB = 3;
   }
 }
+
 void draw()
 {
 
-    loadstring();
-  
+  loadstring();
+
   boolean addApple; 
   boolean addAppleCheck;
 
 
- println(gameT);
 
-    
+  println("size"+SObj.size());
+
   //calling method to change levels
 
   switch (ScoreB)
@@ -251,7 +274,7 @@ void draw()
 
 
     SObj.remove(levels);
-   
+
     audio.pause();
     frameRate(speed1);
     levels = new Level2();
@@ -323,9 +346,10 @@ void draw()
   } 
 
   //stop or starting the game
-  
+
   if (gameT == false)
   {
+
     GameOver();
   }
   // instance of baseclass
@@ -384,21 +408,29 @@ void draw()
 
 void GameOver()
 {
+
+  // method to implement when its gonna be game over  
+  background(255);
+  fill(0);
+  textSize(40);
+
+  if (SObj.get(0).getscore == false)
+  {
+   
+
+    SObj.get(0).getscore = true;
+  }
   
-   // method to implement when its gonna be game over  
-    background(255);
-    fill(0);
-    textSize(40);
-    println(mouseX,mouseY);
-    text("Game Over",width*0.38, height*0.46);
-    text("your Score: "+SObj.get(0).score,width*0.35,height*0.60);
-       
-       textSize(15);
-     text("Press Esc to exit  ",520,550);
-     text("Press 1 to try again or ",350,550);
-     
-        
+  getValue.println(SObj.get(0).score);
+  getValue.flush();  // Writes the remaining data to the file
+  getValue.close();  // Finishes the file
   
+  text("Game Over", width*0.38, height*0.46);
+  text("your Score: "+SObj.get(0).score, width*0.35, height*0.60);
+
+  textSize(15);
+  text("Press Esc to exit  ", 520, 550);
+  text("Press 1 to try again or ", 350, 550);
 }
 
 void changeFrameRate()
@@ -494,8 +526,8 @@ void checkSnakeColli()
 
         { 
 
-          println("snake"+sbj.direction.get(0).dist(sbj.direction.get(j)));
-         gameT = false;
+
+          gameT = false;
         }
       }
     }
