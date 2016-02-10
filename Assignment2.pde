@@ -33,6 +33,8 @@ int speed2 = 16;
 int SpeedDecrement = 0;
 int SpeedIncrement  = 0;
 PrintWriter getValue;
+String [] line = null;
+int getLine;
 AudioPlayer audio;
 
 SnakeObj levels = null;
@@ -53,6 +55,7 @@ void setup ()
   SObj.add(Snakeadd);
   Snakeadd =  new FoodGrowth();
   SObj.add(Snakeadd);
+
   getValue =  createWriter("file.txt");
 }
 
@@ -64,8 +67,12 @@ void menu()
 
 
   PImage bgMenu;
-  PFont font = createFont("arial", 20);
-
+ 
+  //loads load file
+  line = loadStrings("load.txt");
+  //convert the string to int
+  getLine = int(line[0]);
+ 
 
   bgMenu = loadImage("Menu1bg.png");
   background(bgMenu);
@@ -123,7 +130,7 @@ void menu()
     {
       ScoreB = 10;
     }
-    if (SObj.size() >2 && SObj.get(0).score == 100 &&  ScoreC  == false &&  ScoreB !=3)
+    if (SObj.size() >2 && SObj.get(0).score == 100 &&  ScoreC  == false &&  ScoreB !=3  &&  ScoreB !=4)
     {
 
       SObj.get(0).direction.get(0).x = width*0.8;
@@ -133,7 +140,7 @@ void menu()
       ScoreB = 1;
     }
 
-    if (SObj.size() >2 && SObj.get(0).score == 120 &&  ScoreC  == true &&  ScoreB !=3)
+    if (SObj.size() >2 && SObj.get(0).score == 120 &&  ScoreC  == true &&  ScoreB !=3  &&  ScoreB !=4)
     {
       SObj.get(0).direction.get(0).x = width*0.8;
       SObj.get(0).direction.get(0).y = height/5;
@@ -161,12 +168,21 @@ void menu()
   }
   if (mousePressed && mouseX > 400 && mouseX <590 && mouseY >620 && mouseY <650)
   {
-    println("wok2");
+    ScoreB = 4;
   }
   if (mousePressed && mouseX > width*0.46 && mouseX <550 && mouseY >670 && mouseY <698)
   {
     exit();
   }
+}
+
+//implement the highscore
+void highscore()
+{
+  //Display highscore
+  fill(255);
+  background(0);
+  text("HighScore : " +getLine,width*0.4,250);
 }
 
 void GameLevel()
@@ -176,7 +192,7 @@ void GameLevel()
   SnakeObj check = SObj.get(0);
   //send back to the menu and allow the user to choose whether wanna keep continues or not
 
-  if (SObj.get(0).score == 100 &&  ScoreC  == false &&  ScoreB !=3)
+  if (SObj.get(0).score == 100 &&  ScoreC  == false &&  ScoreB !=3  &&  ScoreB !=4)
   {
 
     ScoreB = 1;
@@ -191,19 +207,12 @@ void GameLevel()
 
 
 
-
-
-void loadstring()
-{
-  String [] line = null;
-}
-
 //pause game and bring back to the menu
 void keyPressed()
 {
 
 
-  
+
   if (key == 'p' || key == 'P' )
   {
     ScoreB = 3;
@@ -243,15 +252,14 @@ void keyPressed()
 void draw()
 {
 
-  loadstring();
+
 
   boolean addApple; 
   boolean addAppleCheck;
 
 
 
-  println("size"+SObj.size());
-
+  
   //calling method to change levels
 
   switch (ScoreB)
@@ -316,6 +324,12 @@ void draw()
 
       break;
     }
+    
+    case 4:
+    {
+      highscore();
+      break;
+    }
   }
 
 
@@ -339,7 +353,7 @@ void draw()
 
 
 
-  if (gameT == true && ScoreB!= 3)
+  if (gameT == true && ScoreB!= 3 && ScoreB!= 4)
   {
 
     GameStart();
@@ -416,15 +430,26 @@ void GameOver()
 
   if (SObj.get(0).getscore == false)
   {
-   
+
 
     SObj.get(0).getscore = true;
   }
-  
-  getValue.println(SObj.get(0).score);
-  getValue.flush();  // Writes the remaining data to the file
-  getValue.close();  // Finishes the file
-  
+
+
+  // converting the high score into string and saving into the file
+
+  String words = null;
+  if (getLine < SObj.get(0).score)
+  {
+     println("getline"+getLine);
+    words =Integer.toString((SObj.get(0).score));
+    line = split(words, ' ');
+    saveStrings("Data/load.txt", line);
+    
+  }
+
+ // SHOW FEW TEXT ON THE SCREEN
+
   text("Game Over", width*0.38, height*0.46);
   text("your Score: "+SObj.get(0).score, width*0.35, height*0.60);
 
