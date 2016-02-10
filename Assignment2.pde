@@ -2,14 +2,12 @@
 
  Assignment  2
  Jonatans A de Souza
+ 1/10/2016
  This is a Snake Game*/
 
 
 
 import ddf.minim.*;
-import controlP5.*;
-
-ControlP5 menu;
 
 Minim minim;
 // arraylist with the obj type
@@ -32,11 +30,12 @@ int speed1 = 13;
 int speed2 = 16;
 int SpeedDecrement = 0;
 int SpeedIncrement  = 0;
-PrintWriter getValue;
 String [] line = null;
 int getLine;
+
 AudioPlayer audio;
 
+//instance of snakeobj
 SnakeObj levels = null;
 SnakeObj Snakeadd;
 
@@ -51,12 +50,12 @@ void setup ()
   bg = loadImage("bgG.png");
   audio = minim.loadFile("snake1.wav");
   textSize(20);
+
+  //adding obj to the arraylist
   Snakeadd =  new Snake();
   SObj.add(Snakeadd);
   Snakeadd =  new FoodGrowth();
   SObj.add(Snakeadd);
-
-  getValue =  createWriter("file.txt");
 }
 
 
@@ -67,28 +66,31 @@ void menu()
 
 
   PImage bgMenu;
- 
+
   //loads load file
   line = loadStrings("load.txt");
   //convert the string to int
   getLine = int(line[0]);
- 
+
 
   bgMenu = loadImage("Menu1bg.png");
   background(bgMenu);
 
   //Buttons
-
+  //pause sounds from classes
   if (turnoffSong == true)
   {
     levels.audio.pause();
   }
 
   audio.play();
+
   gameT = true;
+
   fill(#03647E);
   textSize(35);
 
+  //display menu
   text("CONTINUE ", width*0.41, 550 );
 
   text("NEW GAME", width*0.41, 600 );
@@ -97,7 +99,7 @@ void menu()
   text("QUIT ", width*0.46, 700 );
 
 
-  // hover over menu
+  // condition to check where the mouse is
   if (mouseX > 413 && mouseX <590 && mouseY >520 && mouseY <550)
   {
     fill(0);
@@ -123,6 +125,7 @@ void menu()
   }
 
 
+  // if mousepressed its gonna open the specific functions
   if (mousePressed && mouseX > 413 && mouseX <590 && mouseY >520 && mouseY <550 )
   {
 
@@ -140,7 +143,7 @@ void menu()
       ScoreB = 1;
     }
 
-    if (SObj.size() >2 && SObj.get(0).score == 120 &&  ScoreC  == true &&  ScoreB !=3  &&  ScoreB !=4)
+    if (SObj.size() >2 && SObj.get(0).score == 200 &&  ScoreC  == true &&  ScoreB !=3  &&  ScoreB !=4)
     {
       SObj.get(0).direction.get(0).x = width*0.8;
       SObj.get(0).direction.get(0).y = height/5;
@@ -182,7 +185,7 @@ void highscore()
   //Display highscore
   fill(255);
   background(0);
-  text("HighScore : " +getLine,width*0.4,250);
+  text("HighScore : " +getLine, width*0.4, 250);
 }
 
 void GameLevel()
@@ -198,7 +201,7 @@ void GameLevel()
     ScoreB = 1;
     ScoreB = 3;
   }
-  if (check.score == 120 && ScoreC == true)
+  if (check.score == 200 && ScoreC == true)
   {
     ScoreB = 2;
     ScoreB = 3;
@@ -212,7 +215,7 @@ void keyPressed()
 {
 
 
-
+  //pause and bringback to menu
   if (key == 'p' || key == 'P' )
   {
     ScoreB = 3;
@@ -225,12 +228,14 @@ void keyPressed()
     }
   }
 
+  //brings back to menu
   if (key == '1')
   {
     gameT = true;
 
 
 
+    //remove instances if  arralist is greater than 2 in case 1 is pressed
     for (int i = 1; i < SObj.size(); i++)
     {
       if (SObj.size() > 2)
@@ -239,7 +244,7 @@ void keyPressed()
       }
     }
 
-
+    //pause classes sounds
     if (turnoffSong == true)
     {
       levels.audio.pause();
@@ -252,21 +257,16 @@ void keyPressed()
 void draw()
 {
 
-
-
   boolean addApple; 
   boolean addAppleCheck;
 
-
-
-  
   //calling method to change levels
 
   switch (ScoreB)
   {
   case 0:
 
-
+    //level1
     SObj.remove(levels);
     levels = new Level1();
     SObj.add(levels);
@@ -280,7 +280,7 @@ void draw()
 
   case 1:
 
-
+    //level2
     SObj.remove(levels);
 
     audio.pause();
@@ -301,6 +301,7 @@ void draw()
 
   case 2:
     {
+      //level3
       SObj.remove(levels);
       audio.pause();
       levels.audio.pause();
@@ -324,8 +325,8 @@ void draw()
 
       break;
     }
-    
-    case 4:
+
+  case 4:
     {
       highscore();
       break;
@@ -333,26 +334,9 @@ void draw()
   }
 
 
-  // display speed
-
-  if (levels instanceof Level1)
-  {
-    text("Speed : " +20, width*0.04, height*0.1);
-  }
-
-  if (levels instanceof Level2)
-  {
-    text("Speed : " +speed1, width*0.04, height*0.1);
-  }
-
-  if (levels instanceof Level3)
-  {
-    text("Speed : " +speed2, width*0.04, height*0.1);
-  }
-  // calling method
 
 
-
+  // if boolean is true and scoreb not equal these number then gastart method will be called if not gamT will be false and wil display gameover
   if (gameT == true && ScoreB!= 3 && ScoreB!= 4)
   {
 
@@ -366,16 +350,15 @@ void draw()
 
     GameOver();
   }
+
   // instance of baseclass
 
   //calling methods 
   changeFrameRate();
-  //LoadAudio();
-
   addApple = checkPowerup();
   addAppleCheck = checkSPowerUpcolli();
-
   checkSnakeColli();
+
   // creating powerups lives and foodGrowth
   if ( addApple == true || addAppleCheck == true )
   {
@@ -428,27 +411,19 @@ void GameOver()
   fill(0);
   textSize(40);
 
-  if (SObj.get(0).getscore == false)
-  {
-
-
-    SObj.get(0).getscore = true;
-  }
 
 
   // converting the high score into string and saving into the file
-
   String words = null;
   if (getLine < SObj.get(0).score)
   {
-     println("getline"+getLine);
+    println("getline"+getLine);
     words =Integer.toString((SObj.get(0).score));
     line = split(words, ' ');
     saveStrings("Data/load.txt", line);
-    
   }
 
- // SHOW FEW TEXT ON THE SCREEN
+  // SHOW FEW TEXT ON THE SCREEN
 
   text("Game Over", width*0.38, height*0.46);
   text("your Score: "+SObj.get(0).score, width*0.35, height*0.60);
@@ -461,6 +436,7 @@ void GameOver()
 void changeFrameRate()
 {
 
+  // change the speed of the snake
   if (speedDecrease == true && ScoreC == true)
   {
     speed1 -= 3;
@@ -548,10 +524,7 @@ void checkSnakeColli()
         // check collision with own snake
 
         if (sbj.direction.get(0).dist(sbj.direction.get(j)) < sbj.snakeWidth)
-
-        { 
-
-
+        {
           gameT = false;
         }
       }
@@ -576,7 +549,7 @@ boolean checkSPowerUpcolli()
       for (int j = SObj.size () -1; j >=0; j--)
       {
 
-
+        //check collition with powerups
         SnakeObj other =  SObj.get(j);
         if (other instanceof SDecrease || other instanceof SIncrease|| other instanceof FoodGrowth )
         {
@@ -630,6 +603,7 @@ boolean  checkPowerup()
     {
       for (int j = SObj.size () -1; j >=0; j--)
       {
+        //check collision with powerups and create a falling effect that when power ups fall on the fence it will bounce to another place
         SnakeObj other =  SObj.get(j);
         if (other instanceof FoodGrowth || other instanceof SDecrease  || other instanceof SIncrease)
         {

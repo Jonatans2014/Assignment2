@@ -1,8 +1,6 @@
 class Level1 extends SnakeObj 
 {
-    
- 
-  
+   
   // constructor
   Level1()
   {
@@ -15,7 +13,7 @@ class Level1 extends SnakeObj
   }
 
 
-  
+  //methods
 
   void Render()
   {
@@ -26,7 +24,7 @@ class Level1 extends SnakeObj
 
     for (int i =1; i <= width*0.04; i ++)
     {  
-
+        //Draw fences
       levelsquares.add(new PVector((width*0.25 +(10 *i)), height*0.2));
 
       levelsquares.add(new PVector((width*0.25 +10 *i), height*0.4));
@@ -38,7 +36,7 @@ class Level1 extends SnakeObj
 
     for (int i = 0; i <=width *0.12; i++)
     {
-    
+      //Draw fences
       image(fence, levelsquares.get(i).x, levelsquares.get(i).y, 30, 30);
       
     }

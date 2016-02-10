@@ -1,8 +1,7 @@
 class Level3  extends SnakeObj 
 {
-  
-  
  
+  //constructor
    Level3()
   {
     super(width*0.5, height/5,width/2,height/2, 30);  
@@ -15,9 +14,7 @@ class Level3  extends SnakeObj
   }
   
   
-  
-  
-  
+  //methods
   void Render()
   {
     stroke(0);

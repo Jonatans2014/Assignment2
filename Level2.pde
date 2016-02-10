@@ -13,11 +13,6 @@ class Level2 extends SnakeObj
     fence =  loadImage("fence_64x32.png");
   }
 
-
-
-
-
-
   void Render()
   {
 
@@ -25,10 +20,8 @@ class Level2 extends SnakeObj
 
     move = null;
     for (int i =1; i <=  width*0.010; i ++)
-    {  
+    {  //Draw fences
       levelsquares.add(new PVector(0, height*0.7 +(snakeWidth * i)));
-      
-      
       levelsquares.add(new PVector(0, -height*0.0625+(snakeWidth * i)));
       levelsquares.add(new PVector(width*0.97, -height*0.0625+(snakeWidth * i)));
       levelsquares.add(new PVector((0  +(snakeWidth *i)), height*0.96));
@@ -45,8 +38,8 @@ class Level2 extends SnakeObj
     for (int i = 0; i <=width*0.10; i++)
     {
 
-      
-      
+
+
       image(fence, levelsquares.get(i).x, levelsquares.get(i).y, snakeWidth, snakeWidth);
     }
   }

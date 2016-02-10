@@ -13,14 +13,12 @@ class SDecrease extends SnakeObj
     audio = minim.loadFile("decrease.mp3");
   
   }
-
-
-
-
+  
   void Render()
   {
     fill(collour);
     // display life
+   
     image(antidote, direction.get(0).x, direction.get(0).y, snakeWidth, snakeWidth);
   }
   void Sound()
