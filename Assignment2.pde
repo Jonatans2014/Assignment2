@@ -163,16 +163,6 @@ void menu()
     exit(); 
   }
 
-  /*
-  menu = new ControlP5(this);
-   menu.addTextfield("Name")
-   .setPosition(20, 100)
-   .setSize(200, 40)
-   .setFont(font)
-   .setFocus(true)
-   .setColor(color(255, 0, 0))
-   ;
-   */
 }
 
 void GameLevel()
@@ -219,17 +209,24 @@ void keyPressed()
       levels.audio.pause();
     }
   }
+  
+  if(key == '1')
+  {
+    gameT = true;
+    SObj.remove(levels);
+    ScoreB = 3;
+  }
 }
 void draw()
 {
 
     loadstring();
-  GameLevel();
+  
   boolean addApple; 
   boolean addAppleCheck;
 
 
- 
+ println(gameT);
 
     
   //calling method to change levels
@@ -381,6 +378,7 @@ void draw()
       stopIncreaseSpeed  = true;
     }
   }
+  GameLevel();
 }
 
 
@@ -391,9 +389,15 @@ void GameOver()
     background(255);
     fill(0);
     textSize(40);
-    text("Game Over",width/3, height/2);
-    text("Press Esc to exit  ");
-    text("Press 1 to try again ");
+    println(mouseX,mouseY);
+    text("Game Over",width*0.38, height*0.46);
+    text("your Score: "+SObj.get(0).score,width*0.35,height*0.60);
+       
+       textSize(15);
+     text("Press Esc to exit  ",520,550);
+     text("Press 1 to try again or ",350,550);
+     
+        
   
 }
 
@@ -466,7 +470,7 @@ void checkSnakeColli()
 
             if (sbj.direction.get(0).dist(levelCheck.levelsquares.get(c)) < sbj.snakeWidth)
             {
-              println("Fences"+sbj.direction.get(0).dist(sbj.direction.get(0)));
+              //println("Fences"+sbj.direction.get(0).dist(sbj.direction.get(0)));
               gameT = false;
             }
           }
