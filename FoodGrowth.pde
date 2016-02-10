@@ -4,8 +4,6 @@ class FoodGrowth extends SnakeObj
 
   color collour;
   PImage apple;
-
-
   FoodGrowth()
   {
     super(random(10, width * 0.98), random(10, height *0.98 ),width/2,width/2, 30);

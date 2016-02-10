@@ -91,42 +91,42 @@ void menu()
   textSize(35);
 
   //display menu
-  text("CONTINUE ", width*0.41, 550 );
+  text("CONTINUE ", width*0.41, height*0.6875 );
 
-  text("NEW GAME", width*0.41, 600 );
+  text("NEW GAME", width*0.41, height*0.75 );
 
-  text("HIGHSCORE", width*0.40, 650 );
-  text("QUIT ", width*0.46, 700 );
+  text("HIGHSCORE", width*0.40, height*0.8125 );
+  text("QUIT ", width*0.46, height*0.875 );
 
 
   // condition to check where the mouse is
-  if (mouseX > 413 && mouseX <590 && mouseY >520 && mouseY <550)
+  if (mouseX > width*0.413 && mouseX <width*0.59 && mouseY >height *0.65 && mouseY <height *0.6875)
   {
     fill(0);
-    text("CONTINUE ", width*0.41, 550 );
+    text("CONTINUE ", width*0.41, height*0.6875 );
   }
 
-  if (mouseX > 413 && mouseX <590 && mouseY >570 && mouseY <600)
+  if (mouseX > width*0.413 && mouseX <width*0.59 && mouseY >height*0.7125 && mouseY <height*0.75)
   {
 
     fill(0);
-    text("NEW GAME", width*0.41, 600 );
+    text("NEW GAME", width*0.41, height*0.75 );
   }
-  if (mouseX > 400 && mouseX <590 && mouseY >620 && mouseY <650)
+  if (mouseX > width*0.4 && mouseX <width*0.59 && mouseY >height*0.775 && mouseY <650)
   {
     fill(0);
     text("HIGHSCORE", width*0.40, 650 );
   }
 
-  if (mouseX > width*0.46 && mouseX <550 && mouseY >670 && mouseY <698)
+  if (mouseX > width*0.46 && mouseX <550 && mouseY >670 && mouseY <height*0.8125)
   {
     fill(0);
-    text("QUIT ", width*0.46, 700 );
+    text("QUIT ", width*0.46, height*0.875 );
   }
 
 
   // if mousepressed its gonna open the specific functions
-  if (mousePressed && mouseX > 413 && mouseX <590 && mouseY >520 && mouseY <550 )
+  if (mousePressed && mouseX > width*0.413 && mouseX <width*0.59 && mouseY >height*0.65 && mouseY <height*0.6875 )
   {
 
     if (SObj.size() >2)
@@ -152,7 +152,7 @@ void menu()
       ScoreB = 2;
     }
   }
-  if (mousePressed && mouseX > 413 && mouseX <590 && mouseY >570 && mouseY <600 )
+  if (mousePressed && mouseX > width*0.413 && mouseX <width*0.59 && mouseY >height*0.7125 && mouseY <height*0.75 )
   {
     ScoreB = 0;
     SObj.clear(); 
@@ -169,11 +169,11 @@ void menu()
       levels.audio.pause();
     }
   }
-  if (mousePressed && mouseX > 400 && mouseX <590 && mouseY >620 && mouseY <650)
+  if (mousePressed && mouseX > width*0.4 && mouseX <width*0.59 && mouseY >height*0.775 && mouseY <height*0.8125)
   {
     ScoreB = 4;
   }
-  if (mousePressed && mouseX > width*0.46 && mouseX <550 && mouseY >670 && mouseY <698)
+  if (mousePressed && mouseX > width*0.46 && mouseX <width*0.55 && mouseY >height *0.8375 && mouseY <height*0.8725)
   {
     exit();
   }
@@ -185,19 +185,16 @@ void highscore()
   //Display highscore
   fill(255);
   background(0);
-  text("HighScore : " +getLine, width*0.4, 250);
+  text("HighScore : " +getLine, width*0.4, height*0.3125);
 }
 
 void GameLevel()
 {
-
-
   SnakeObj check = SObj.get(0);
+  
   //send back to the menu and allow the user to choose whether wanna keep continues or not
-
   if (SObj.get(0).score == 100 &&  ScoreC  == false &&  ScoreB !=3  &&  ScoreB !=4)
   {
-
     ScoreB = 1;
     ScoreB = 3;
   }
@@ -208,20 +205,15 @@ void GameLevel()
   }
 }
 
-
-
 //pause game and bring back to the menu
 void keyPressed()
 {
-
-
   //pause and bringback to menu
   if (key == 'p' || key == 'P' )
   {
     ScoreB = 3;
     audio.rewind();
-
-
+    
     if (turnoffSong == true)
     {
       levels.audio.pause();
@@ -232,9 +224,7 @@ void keyPressed()
   if (key == '1')
   {
     gameT = true;
-
-
-
+    
     //remove instances if  arralist is greater than 2 in case 1 is pressed
     for (int i = 1; i < SObj.size(); i++)
     {
@@ -332,27 +322,20 @@ void draw()
       break;
     }
   }
-
-
-
-
+  
   // if boolean is true and scoreb not equal these number then gastart method will be called if not gamT will be false and wil display gameover
   if (gameT == true && ScoreB!= 3 && ScoreB!= 4)
   {
-
     GameStart();
   } 
 
   //stop or starting the game
-
   if (gameT == false)
   {
-
     GameOver();
   }
 
   // instance of baseclass
-
   //calling methods 
   changeFrameRate();
   addApple = checkPowerup();
@@ -362,7 +345,6 @@ void draw()
   // creating powerups lives and foodGrowth
   if ( addApple == true || addAppleCheck == true )
   {
-
     Snakeadd =  new FoodGrowth();
     SObj.add(Snakeadd);
     addApple = false;
@@ -410,9 +392,6 @@ void GameOver()
   background(255);
   fill(0);
   textSize(40);
-
-
-
   // converting the high score into string and saving into the file
   String words = null;
   if (getLine < SObj.get(0).score)
@@ -429,8 +408,8 @@ void GameOver()
   text("your Score: "+SObj.get(0).score, width*0.35, height*0.60);
 
   textSize(15);
-  text("Press Esc to exit  ", 520, 550);
-  text("Press 1 to try again or ", 350, 550);
+  text("Press Esc to exit  ", width*0.52, height*0.6875);
+  text("Press 1 to try again or ", width*0.35, height*0.6875);
 }
 
 void changeFrameRate()

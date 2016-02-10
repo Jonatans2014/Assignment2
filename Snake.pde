@@ -19,9 +19,9 @@ class Snake  extends SnakeObj
   // constructor
   Snake()
   {
-    super(width*0.8, height*0.4, width/2, height/2, 30);  
+    super(width*0.8, height/5, width/2, height/2, 30);  
     textWH = width * 0.040f;
-    score = 90;
+    score = 0;
     SnakeS = 1;
 
     x = width/3;
@@ -38,10 +38,8 @@ class Snake  extends SnakeObj
   }
   // method to draw the snake
 
-
   void Render()
   {
-
     textSize(20);
     direction.add(new PVector(-snakeWidth, -snakeWidth));
     // display life
@@ -85,7 +83,8 @@ class Snake  extends SnakeObj
         move = "a";
       }
     }
-    //switch case
+    
+    //link snake
     for (int j = SnakeSize -1; j > 0; j-- ) {
 
       direction.get(j).x=  direction.get(j-1).x;
